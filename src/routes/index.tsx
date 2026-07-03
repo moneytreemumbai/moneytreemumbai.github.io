@@ -1009,13 +1009,65 @@ function FAQ() {
 }
 
 function Contact() {
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState<string>("");
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (status === "submitting") return;
+    setStatus("submitting");
+    setErrorMsg("");
+    setFieldErrors({});
+    const fd = new FormData(e.currentTarget);
+    const payload = {
+      name: String(fd.get("name") ?? ""),
+      email: String(fd.get("email") ?? ""),
+      company: String(fd.get("company") ?? ""),
+      role: String(fd.get("role") ?? ""),
+      interest: String(fd.get("interest") ?? ""),
+      message: String(fd.get("message") ?? ""),
+      website: String(fd.get("website") ?? ""), // honeypot
+    };
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = (await res.json().catch(() => ({}))) as {
+        ok?: boolean;
+        error?: string;
+        issues?: Record<string, string[]>;
+      };
+      if (!res.ok || !data.ok) {
+        setFieldErrors(data.issues ?? {});
+        setErrorMsg(data.error || "Something went wrong. Please try again.");
+        setStatus("error");
+        return;
+      }
+      setStatus("success");
+      (e.target as HTMLFormElement).reset();
+    } catch {
+      setErrorMsg("Network error. Please try again.");
+      setStatus("error");
+    }
+  }
+
+  const fields: { name: string; label: string; type: string; placeholder: string; required?: boolean }[] = [
+    { name: "name", label: "Full Name", type: "text", placeholder: "Jane Whitmore", required: true },
+    { name: "email", label: "Business Email", type: "email", placeholder: "jane@company.com", required: true },
+    { name: "company", label: "Company", type: "text", placeholder: "Your organization", required: true },
+    { name: "role", label: "Role", type: "text", placeholder: "e.g. CFO" },
+  ];
+
   return (
-    <section id="contact" className="py-28 md:py-36 bg-navy-deep text-white relative overflow-hidden">
-      <div className="absolute inset-0 opacity-10" style={{
+    <section id="contact" className="py-20 md:py-28 lg:py-36 bg-navy-deep text-white relative overflow-hidden">
+      <div className="absolute inset-0 opacity-10 pointer-events-none" aria-hidden="true" style={{
         backgroundImage: "linear-gradient(oklch(0.78 0.13 82 / 0.3) 1px, transparent 1px)",
         backgroundSize: "100% 60px",
       }} />
-      <div className="container-x relative grid lg:grid-cols-2 gap-16">
+      <div className="container-x relative grid lg:grid-cols-2 gap-12 lg:gap-16">
         <div>
           <Reveal>
             <SectionHeader
@@ -1025,7 +1077,7 @@ function Contact() {
               intro="Whether you're at the top of a market or navigating structural change, we're ready to help you make the next decision that matters."
             />
           </Reveal>
-          <div className="mt-12 space-y-6">
+          <div className="mt-10 space-y-6">
             {[
               { icon: MapPin, label: "Headquarters", value: "One Financial Plaza, 42nd Floor, New York, NY 10005" },
               { icon: Mail, label: "Email", value: "contact@marketstrategy.com" },
@@ -1033,55 +1085,100 @@ function Contact() {
               { icon: Globe2, label: "Global Offices", value: "New York · London · Frankfurt · Dubai · Mumbai · Singapore" },
             ].map((c) => (
               <div key={c.label} className="flex gap-4 border-t border-white/10 pt-6">
-                <div className="h-10 w-10 grid place-items-center border border-gold/40 text-gold shrink-0">
+                <div className="h-10 w-10 grid place-items-center border border-gold/40 text-gold shrink-0" aria-hidden="true">
                   <c.icon className="h-4 w-4" />
                 </div>
                 <div className="min-w-0">
-                  <div className="eyebrow text-white/50">{c.label}</div>
-                  <div className="mt-1 text-white/90">{c.value}</div>
+                  <div className="eyebrow text-white/60">{c.label}</div>
+                  <div className="mt-1 text-white/90 break-words">{c.value}</div>
                 </div>
               </div>
             ))}
           </div>
-          <div className="mt-10 flex gap-3">
-            {["LinkedIn", "X", "YT"].map((s) => (
-              <a key={s} href="#" aria-label={s} className="h-11 w-11 grid place-items-center border border-white/20 text-white/70 hover:border-gold hover:text-gold transition-colors text-xs">
-                {s}
-              </a>
-            ))}
-          </div>
         </div>
         <Reveal delay={150}>
-          <form className="bg-white/[0.03] border border-white/10 backdrop-blur-md p-8 md:p-10" onSubmit={(e) => { e.preventDefault(); alert("Thank you. Our team will be in touch shortly."); }}>
-            <div className="font-display text-2xl text-white">Request a private briefing</div>
-            <div className="mt-2 text-sm text-white/60">Typical response within one business day.</div>
+          <form
+            noValidate
+            onSubmit={handleSubmit}
+            aria-labelledby="contact-form-title"
+            className="bg-white/[0.03] border border-white/10 backdrop-blur-md p-6 sm:p-8 md:p-10"
+          >
+            <h3 id="contact-form-title" className="font-display text-2xl text-white">Request a private briefing</h3>
+            <p className="mt-2 text-sm text-white/70">Typical response within one business day.</p>
+
+            {/* Honeypot: hidden from users, visible to bots */}
+            <div aria-hidden="true" className="absolute -left-[9999px] w-px h-px overflow-hidden">
+              <label>
+                Website
+                <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+              </label>
+            </div>
+
             <div className="mt-8 grid sm:grid-cols-2 gap-5">
-              {[
-                { l: "Full Name", t: "text", p: "Jane Whitmore" },
-                { l: "Business Email", t: "email", p: "jane@company.com" },
-                { l: "Company", t: "text", p: "Your organization" },
-                { l: "Role", t: "text", p: "e.g. CFO" },
-              ].map((f) => (
-                <label key={f.l} className="block">
-                  <div className="text-xs uppercase tracking-widest text-white/60">{f.l}</div>
-                  <input required type={f.t} placeholder={f.p} className="mt-2 w-full bg-transparent border-b border-white/20 py-3 text-white placeholder:text-white/30 focus:border-gold focus:outline-none transition-colors" />
-                </label>
-              ))}
+              {fields.map((f) => {
+                const err = fieldErrors[f.name]?.[0];
+                return (
+                  <label key={f.name} className="block">
+                    <span className="text-xs uppercase tracking-widest text-white/70">
+                      {f.label}{f.required && <span className="text-gold" aria-hidden="true"> *</span>}
+                    </span>
+                    <input
+                      required={f.required}
+                      type={f.type}
+                      name={f.name}
+                      placeholder={f.placeholder}
+                      autoComplete={f.name === "email" ? "email" : f.name === "name" ? "name" : "off"}
+                      aria-invalid={err ? true : undefined}
+                      aria-describedby={err ? `${f.name}-err` : undefined}
+                      className="mt-2 w-full bg-transparent border-b border-white/20 py-3 text-white placeholder:text-white/40 focus:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/40 transition-colors"
+                    />
+                    {err && <span id={`${f.name}-err`} className="mt-1 block text-xs text-red-300">{err}</span>}
+                  </label>
+                );
+              })}
             </div>
             <label className="block mt-6">
-              <div className="text-xs uppercase tracking-widest text-white/60">Area of Interest</div>
-              <select className="mt-2 w-full bg-transparent border-b border-white/20 py-3 text-white focus:border-gold focus:outline-none">
+              <span className="text-xs uppercase tracking-widest text-white/70">Area of Interest</span>
+              <select
+                name="interest"
+                defaultValue={services[0]?.title}
+                className="mt-2 w-full bg-transparent border-b border-white/20 py-3 text-white focus:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
+              >
                 {services.map((s) => (
                   <option key={s.title} className="bg-navy-deep text-white">{s.title}</option>
                 ))}
               </select>
             </label>
             <label className="block mt-6">
-              <div className="text-xs uppercase tracking-widest text-white/60">How can we help?</div>
-              <textarea rows={4} placeholder="Briefly describe the decision or challenge at hand..." className="mt-2 w-full bg-transparent border-b border-white/20 py-3 text-white placeholder:text-white/30 focus:border-gold focus:outline-none resize-none" />
+              <span className="text-xs uppercase tracking-widest text-white/70">How can we help? <span className="text-gold" aria-hidden="true">*</span></span>
+              <textarea
+                required
+                name="message"
+                rows={4}
+                minLength={10}
+                maxLength={2000}
+                placeholder="Briefly describe the decision or challenge at hand..."
+                aria-invalid={fieldErrors.message?.[0] ? true : undefined}
+                className="mt-2 w-full bg-transparent border-b border-white/20 py-3 text-white placeholder:text-white/40 focus:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/40 resize-none"
+              />
+              {fieldErrors.message?.[0] && <span className="mt-1 block text-xs text-red-300">{fieldErrors.message[0]}</span>}
             </label>
-            <button type="submit" className="mt-10 w-full inline-flex items-center justify-center gap-2 h-13 py-4 bg-gold text-navy-deep font-medium tracking-wide hover:bg-gold-soft transition-colors">
-              Submit Inquiry <ArrowUpRight className="h-4 w-4" />
+
+            <div aria-live="polite" className="mt-6 min-h-[1.25rem] text-sm">
+              {status === "success" && (
+                <p className="text-gold">Thank you. Our team will be in touch within one business day.</p>
+              )}
+              {status === "error" && (
+                <p className="text-red-300">{errorMsg}</p>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              disabled={status === "submitting"}
+              className="mt-4 w-full inline-flex items-center justify-center gap-2 min-h-12 py-4 bg-gold text-navy-deep font-medium tracking-wide hover:bg-gold-soft transition-colors disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
+            >
+              {status === "submitting" ? "Sending…" : (<>Submit Inquiry <ArrowUpRight className="h-4 w-4" aria-hidden="true" /></>)}
             </button>
           </form>
         </Reveal>
