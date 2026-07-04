@@ -44,12 +44,28 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
+const CSP = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "frame-ancestors 'self'",
+  "form-action 'self'",
+  "object-src 'none'",
+  "img-src 'self' data: https:",
+  "font-src 'self' https://fonts.gstatic.com data:",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "script-src 'self' 'unsafe-inline'",
+  "connect-src 'self' https:",
+  "upgrade-insecure-requests",
+].join("; ");
+
 const SECURITY_HEADERS: Record<string, string> = {
+  "Content-Security-Policy": CSP,
   "X-Content-Type-Options": "nosniff",
   "X-Frame-Options": "SAMEORIGIN",
   "Referrer-Policy": "strict-origin-when-cross-origin",
   "Permissions-Policy": "camera=(), microphone=(), geolocation=(), interest-cohort=()",
   "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+  "Cross-Origin-Opener-Policy": "same-origin",
 };
 
 function withSecurityHeaders(response: Response): Response {
