@@ -4,10 +4,7 @@ export default defineConfig({
   vite: {
     build: {
       outDir: "dist",
+      ssr: false,
     },
-  },
-
-  tanstackStart: {
-    server: { entry: "server" },
   },
 });
