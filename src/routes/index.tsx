@@ -1256,23 +1256,26 @@ function Footer() {
 
 function MarketStrategyHome() {
   return (
-    <main>
+    <>
+      <a href="#main-content" className="skip-link">Skip to main content</a>
       <Navbar />
-      <Hero />
-      <About />
-      <Services />
-      <Industries />
-      <WhyUs />
-      <Process />
-      <Insights />
-      <CaseStudies />
-      <Leadership />
-      <Testimonials />
-      <Careers />
-      <GlobalOffices />
-      <FAQ />
-      <Contact />
+      <main id="main-content">
+        <Hero />
+        <About />
+        <Services />
+        <Industries />
+        <WhyUs />
+        <Process />
+        <Insights />
+        <CaseStudies />
+        <Leadership />
+        <Testimonials />
+        <Careers />
+        <GlobalOffices />
+        <FAQ />
+        <Contact />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }
