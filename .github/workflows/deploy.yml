@@ -40,22 +40,35 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
-      - name: Build
+      - name: Build (static)
         env:
+          BUILD_TARGET: github-pages
           VITE_BASE_PATH: ${{ steps.base.outputs.base }}
           VITE_FORMSPREE_ID: ${{ secrets.VITE_FORMSPREE_ID }}
         run: bun run build
 
-      - name: SPA fallback (404.html = index.html)
+      - name: Resolve static output dir
+        id: outdir
         run: |
-          if [ -f dist/index.html ]; then
-            cp dist/index.html dist/404.html
-          fi
-          touch dist/.nojekyll
+          for d in dist/public dist/client dist; do
+            if [ -f "$d/index.html" ]; then
+              echo "dir=$d" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          done
+          echo "No index.html found in dist/public, dist/client, or dist" >&2
+          ls -R dist | head -80 >&2
+          exit 1
+
+      - name: SPA fallback and Jekyll opt-out
+        run: |
+          OUT="${{ steps.outdir.outputs.dir }}"
+          cp "$OUT/index.html" "$OUT/404.html"
+          touch "$OUT/.nojekyll"
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: ${{ steps.outdir.outputs.dir }}
 
   deploy:
     needs: build
