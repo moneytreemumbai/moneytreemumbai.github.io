@@ -18,13 +18,13 @@ export default defineConfig({
     },
   },
   nitro: isGithubPages
-    ? {
+    ? ({
         preset: "static",
         prerender: {
           routes: ["/"],
           crawlLinks: true,
           failOnError: false,
         },
-      }
+      } as never)
     : undefined,
 });
