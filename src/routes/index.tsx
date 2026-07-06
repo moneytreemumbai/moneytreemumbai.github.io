@@ -54,9 +54,22 @@ export const Route = createFileRoute("/")({
 function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduced(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setReduced(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    if (reduced) {
+      setVisible(true);
+      return;
+    }
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -70,14 +83,16 @@ function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
     );
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [reduced]);
   return (
     <div
       ref={ref}
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(28px)",
-        transition: `opacity 0.9s cubic-bezier(0.2,0.8,0.2,1) ${delay}ms, transform 0.9s cubic-bezier(0.2,0.8,0.2,1) ${delay}ms`,
+        transition: reduced
+          ? "none"
+          : `opacity 0.9s cubic-bezier(0.2,0.8,0.2,1) ${delay}ms, transform 0.9s cubic-bezier(0.2,0.8,0.2,1) ${delay}ms`,
       }}
     >
       {children}
@@ -1256,23 +1271,26 @@ function Footer() {
 
 function MarketStrategyHome() {
   return (
-    <main>
+    <>
+      <a href="#main-content" className="skip-link">Skip to main content</a>
       <Navbar />
-      <Hero />
-      <About />
-      <Services />
-      <Industries />
-      <WhyUs />
-      <Process />
-      <Insights />
-      <CaseStudies />
-      <Leadership />
-      <Testimonials />
-      <Careers />
-      <GlobalOffices />
-      <FAQ />
-      <Contact />
+      <main id="main-content">
+        <Hero />
+        <About />
+        <Services />
+        <Industries />
+        <WhyUs />
+        <Process />
+        <Insights />
+        <CaseStudies />
+        <Leadership />
+        <Testimonials />
+        <Careers />
+        <GlobalOffices />
+        <FAQ />
+        <Contact />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }
