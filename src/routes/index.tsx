@@ -1034,35 +1034,63 @@ function Contact() {
     setStatus("submitting");
     setErrorMsg("");
     setFieldErrors({});
-    const fd = new FormData(e.currentTarget);
-    const payload = {
-      name: String(fd.get("name") ?? ""),
-      email: String(fd.get("email") ?? ""),
-      company: String(fd.get("company") ?? ""),
-      role: String(fd.get("role") ?? ""),
-      interest: String(fd.get("interest") ?? ""),
-      message: String(fd.get("message") ?? ""),
-      website: String(fd.get("website") ?? ""), // honeypot
-    };
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const data = (await res.json().catch(() => ({}))) as {
-        ok?: boolean;
-        error?: string;
-        issues?: Record<string, string[]>;
-      };
-      if (!res.ok || !data.ok) {
-        setFieldErrors(data.issues ?? {});
-        setErrorMsg(data.error || "Something went wrong. Please try again.");
-        setStatus("error");
-        return;
-      }
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+
+    // Honeypot: silently succeed for bots
+    if (String(fd.get("website") ?? "").trim() !== "") {
       setStatus("success");
-      (e.target as HTMLFormElement).reset();
+      form.reset();
+      return;
+    }
+
+    const payload = {
+      name: String(fd.get("name") ?? "").trim(),
+      email: String(fd.get("email") ?? "").trim(),
+      company: String(fd.get("company") ?? "").trim(),
+      role: String(fd.get("role") ?? "").trim(),
+      interest: String(fd.get("interest") ?? "").trim(),
+      message: String(fd.get("message") ?? "").trim(),
+    };
+
+    // Client-side validation
+    const issues: Record<string, string[]> = {};
+    if (payload.name.length < 2) issues.name = ["Please enter your full name."];
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) issues.email = ["Enter a valid email."];
+    if (payload.company.length < 2) issues.company = ["Company is required."];
+    if (payload.message.length < 10) issues.message = ["Please share a bit more (10+ chars)."];
+    if (Object.keys(issues).length > 0) {
+      setFieldErrors(issues);
+      setErrorMsg("Please fix the highlighted fields.");
+      setStatus("error");
+      return;
+    }
+
+    const formspreeId = import.meta.env.VITE_FORMSPREE_ID as string | undefined;
+    try {
+      if (formspreeId) {
+        const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) {
+          setErrorMsg("Something went wrong. Please try again or email us directly.");
+          setStatus("error");
+          return;
+        }
+        setStatus("success");
+        form.reset();
+      } else {
+        // Fallback: open the user's mail client
+        const subject = encodeURIComponent(`Inquiry from ${payload.name} — ${payload.company}`);
+        const body = encodeURIComponent(
+          `Name: ${payload.name}\nEmail: ${payload.email}\nCompany: ${payload.company}\nRole: ${payload.role}\nInterest: ${payload.interest}\n\n${payload.message}`,
+        );
+        window.location.href = `mailto:contact@marketstrategy.com?subject=${subject}&body=${body}`;
+        setStatus("success");
+        form.reset();
+      }
     } catch {
       setErrorMsg("Network error. Please try again.");
       setStatus("error");
