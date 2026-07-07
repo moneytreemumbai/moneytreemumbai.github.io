@@ -50,14 +50,14 @@ jobs:
       - name: Resolve static output dir
         id: outdir
         run: |
-          for d in dist/public dist/client dist; do
+          for d in .output/public dist/public dist/client dist; do
             if [ -f "$d/index.html" ]; then
               echo "dir=$d" >> "$GITHUB_OUTPUT"
               exit 0
             fi
           done
-          echo "No index.html found in dist/public, dist/client, or dist" >&2
-          ls -R dist | head -80 >&2
+          echo "No index.html found in expected output dirs" >&2
+          ls -R .output dist 2>/dev/null | head -120 >&2
           exit 1
 
       - name: SPA fallback and Jekyll opt-out
