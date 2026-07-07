@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build",
+    "build": "node ./scripts/build.mjs",
+    "build:app": "vite build",
+    "build:github-pages": "vite build --config vite.github-pages.config.ts",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
