@@ -1029,6 +1029,8 @@ function Contact() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
+  const mountedAtRef = useRef<number>(Date.now());
+  useEffect(() => { mountedAtRef.current = Date.now(); }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -1041,6 +1043,13 @@ function Contact() {
 
     // Honeypot: silently succeed for bots
     if (String(fd.get("website") ?? "").trim() !== "") {
+      setStatus("success");
+      form.reset();
+      return;
+    }
+
+    // Time-trap: forms submitted in under 3s are almost certainly bots
+    if (Date.now() - mountedAtRef.current < 3000) {
       setStatus("success");
       form.reset();
       return;
@@ -1318,6 +1327,7 @@ function MarketStrategyHome() {
         <Contact />
       </main>
       <Footer />
+      <CookieConsent />
     </>
   );
 }
