@@ -44,6 +44,8 @@ import {
 import heroSkyline from "@/assets/hero-skyline.jpg";
 import aboutBoardroom from "@/assets/about-boardroom.jpg";
 import patternGrid from "@/assets/pattern-grid.jpg";
+import { CookieConsent } from "@/components/CookieConsent";
+import { NewsletterForm } from "@/components/NewsletterForm";
 
 export const Route = createFileRoute("/")({
   component: MarketStrategyHome,
@@ -1251,10 +1253,7 @@ function Footer() {
             </p>
             <div className="mt-8">
               <div className="eyebrow text-white/50">Newsletter</div>
-              <form className="mt-3 flex border-b border-white/20 focus-within:border-gold transition-colors" onSubmit={(e) => e.preventDefault()}>
-                <input type="email" required placeholder="you@company.com" className="flex-1 bg-transparent py-3 text-sm text-white placeholder:text-white/40 focus:outline-none" />
-                <button type="submit" className="text-gold text-xs uppercase tracking-widest px-3">Subscribe</button>
-              </form>
+              <NewsletterForm />
             </div>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
@@ -1284,9 +1283,9 @@ function Footer() {
         <div className="mt-16 pt-8 border-t border-white/10 flex flex-wrap items-center justify-between gap-6">
           <div className="text-xs text-white/50">© {new Date().getFullYear()} Market Strategy Advisory LLC. All rights reserved.</div>
           <div className="flex flex-wrap gap-6 text-xs text-white/60">
-            <a href="#" className="hover:text-gold">Privacy Policy</a>
-            <a href="#" className="hover:text-gold">Terms of Use</a>
-            <a href="#" className="hover:text-gold">Cookie Policy</a>
+            <Link to="/privacy" className="hover:text-gold">Privacy Policy</Link>
+            <Link to="/terms" className="hover:text-gold">Terms of Use</Link>
+            <Link to="/cookies" className="hover:text-gold">Cookie Policy</Link>
             <a href="#" className="hover:text-gold">Disclosures</a>
           </div>
         </div>
