@@ -319,7 +319,7 @@ function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-  const links = [
+  const links: { href: SitePath; label: string }[] = [
     { href: "/about", label: "About" },
     { href: "/services", label: "Services" },
     { href: "/industries", label: "Industries" },
@@ -337,32 +337,33 @@ function Navbar() {
       }`}
     >
       <div className="container-x flex items-center justify-between h-20">
-        <a href="/" className="flex items-center gap-2.5 text-white">
+        <Link to="/" className="flex items-center gap-2.5 text-white">
           <div className="h-8 w-8 grid place-items-center border border-gold/50 text-gold font-display text-lg">M</div>
           <div className="leading-tight">
             <div className="font-display text-lg tracking-tight">Market Strategy</div>
             <div className="text-[10px] tracking-[0.24em] text-white/60 uppercase">Est. Global Advisory</div>
           </div>
-        </a>
-        <nav className="hidden lg:flex items-center gap-8">
+        </Link>
+        <nav className="hidden lg:flex items-center gap-8" aria-label="Main">
           {links.map((l) => (
-            <a
+            <Link
               key={l.href}
-              href={l.href}
+              to={l.href}
+              activeProps={{ className: "text-gold" }}
               className="text-sm text-white/80 hover:text-gold transition-colors relative after:absolute after:left-0 after:-bottom-1.5 after:h-px after:w-0 after:bg-gold after:transition-all hover:after:w-full"
             >
               {l.label}
-            </a>
+            </Link>
           ))}
         </nav>
         <div className="hidden lg:flex">
-          <a
-            href="/contact"
+          <Link
+            to="/contact"
             className="inline-flex items-center gap-2 h-10 px-5 text-sm text-navy-deep bg-gold hover:bg-gold-soft transition-colors"
           >
             Talk to an Expert
             <ArrowUpRight className="h-4 w-4" />
-          </a>
+          </Link>
         </div>
         <button
           className="lg:hidden text-white p-2 -mr-2"
@@ -377,13 +378,13 @@ function Navbar() {
         <div className="lg:hidden bg-navy-deep border-t border-white/10">
           <div className="container-x py-6 flex flex-col gap-4">
             {links.map((l) => (
-              <a key={l.href} href={l.href} className="text-white/80 hover:text-gold text-base" onClick={() => setOpen(false)}>
+              <Link key={l.href} to={l.href} className="text-white/80 hover:text-gold text-base" onClick={() => setOpen(false)}>
                 {l.label}
-              </a>
+              </Link>
             ))}
-            <a href="/contact" onClick={() => setOpen(false)} className="mt-2 inline-flex items-center justify-center h-11 px-5 text-sm text-navy-deep bg-gold">
+            <Link to="/contact" onClick={() => setOpen(false)} className="mt-2 inline-flex items-center justify-center h-11 px-5 text-sm text-navy-deep bg-gold">
               Talk to an Expert
-            </a>
+            </Link>
           </div>
         </div>
       )}
