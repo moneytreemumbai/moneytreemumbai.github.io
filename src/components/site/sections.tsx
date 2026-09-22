@@ -1252,11 +1252,46 @@ function Contact() {
 }
 
 function Footer() {
-  const cols = [
-    { title: "Firm", links: ["About", "Leadership", "Careers", "Global Offices", "Press"] },
-    { title: "Services", links: ["Corporate Strategy", "Investment Advisory", "Growth Consulting", "Digital Strategy", "M&A Advisory"] },
-    { title: "Industries", links: ["Banking", "Healthcare", "Energy", "Technology", "Real Estate"] },
-    { title: "Resources", links: ["Insights", "Case Studies", "Reports", "Contact"] },
+  const cols: { title: string; links: { label: string; to: SitePath }[] }[] = [
+    {
+      title: "Firm",
+      links: [
+        { label: "About", to: "/about" },
+        { label: "Leadership", to: "/about" },
+        { label: "Careers", to: "/careers" },
+        { label: "Global Offices", to: "/about" },
+        { label: "Contact", to: "/contact" },
+      ],
+    },
+    {
+      title: "Services",
+      links: [
+        { label: "Corporate Strategy", to: "/services" },
+        { label: "Investment Advisory", to: "/services" },
+        { label: "Growth Consulting", to: "/services" },
+        { label: "Digital Strategy", to: "/services" },
+        { label: "M&A Advisory", to: "/services" },
+      ],
+    },
+    {
+      title: "Industries",
+      links: [
+        { label: "Banking", to: "/industries" },
+        { label: "Healthcare", to: "/industries" },
+        { label: "Energy", to: "/industries" },
+        { label: "Technology", to: "/industries" },
+        { label: "Real Estate", to: "/industries" },
+      ],
+    },
+    {
+      title: "Resources",
+      links: [
+        { label: "Insights", to: "/insights" },
+        { label: "Case Studies", to: "/case-studies" },
+        { label: "Privacy", to: "/privacy" },
+        { label: "Cookies", to: "/cookies" },
+      ],
+    },
   ];
   return (
     <footer className="bg-navy-deep text-white border-t border-white/10">
