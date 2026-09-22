@@ -140,7 +140,7 @@ function SectionHeader({
 function GoldButton({
   children,
   variant = "solid",
-  href = "#contact",
+  href = "/contact",
   className = "",
 }: {
   children: React.ReactNode;
@@ -307,13 +307,13 @@ function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
   const links = [
-    { href: "#about", label: "About" },
-    { href: "#services", label: "Services" },
-    { href: "#industries", label: "Industries" },
-    { href: "#insights", label: "Insights" },
-    { href: "#cases", label: "Case Studies" },
-    { href: "#careers", label: "Careers" },
-    { href: "#contact", label: "Contact" },
+    { href: "/about", label: "About" },
+    { href: "/services", label: "Services" },
+    { href: "/industries", label: "Industries" },
+    { href: "/insights", label: "Insights" },
+    { href: "/case-studies", label: "Case Studies" },
+    { href: "/careers", label: "Careers" },
+    { href: "/contact", label: "Contact" },
   ];
   return (
     <header
@@ -324,7 +324,7 @@ function Navbar() {
       }`}
     >
       <div className="container-x flex items-center justify-between h-20">
-        <a href="#top" className="flex items-center gap-2.5 text-white">
+        <a href="/" className="flex items-center gap-2.5 text-white">
           <div className="h-8 w-8 grid place-items-center border border-gold/50 text-gold font-display text-lg">M</div>
           <div className="leading-tight">
             <div className="font-display text-lg tracking-tight">Market Strategy</div>
@@ -344,7 +344,7 @@ function Navbar() {
         </nav>
         <div className="hidden lg:flex">
           <a
-            href="#contact"
+            href="/contact"
             className="inline-flex items-center gap-2 h-10 px-5 text-sm text-navy-deep bg-gold hover:bg-gold-soft transition-colors"
           >
             Talk to an Expert
@@ -368,7 +368,7 @@ function Navbar() {
                 {l.label}
               </a>
             ))}
-            <a href="#contact" onClick={() => setOpen(false)} className="mt-2 inline-flex items-center justify-center h-11 px-5 text-sm text-navy-deep bg-gold">
+            <a href="/contact" onClick={() => setOpen(false)} className="mt-2 inline-flex items-center justify-center h-11 px-5 text-sm text-navy-deep bg-gold">
               Talk to an Expert
             </a>
           </div>
@@ -420,8 +420,8 @@ function Hero() {
             enterprise scale, across five continents.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
-            <GoldButton variant="solid" href="#contact">Get Started</GoldButton>
-            <GoldButton variant="outline" href="#contact">Talk to an Expert</GoldButton>
+            <GoldButton variant="solid" href="/contact">Get Started</GoldButton>
+            <GoldButton variant="outline" href="/contact">Talk to an Expert</GoldButton>
           </div>
           <div className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-8 max-w-3xl border-t border-white/15 pt-8">
             {[
@@ -517,7 +517,7 @@ function Services() {
                 </div>
                 <h3 className="mt-8 text-xl leading-snug text-white">{s.title}</h3>
                 <p className="mt-3 text-sm text-white/60 leading-relaxed flex-1">{s.desc}</p>
-                <a href="#contact" className="mt-6 inline-flex items-center gap-1.5 text-xs uppercase tracking-widest text-gold hover:gap-2.5 transition-all">
+                <a href="/contact" className="mt-6 inline-flex items-center gap-1.5 text-xs uppercase tracking-widest text-gold hover:gap-2.5 transition-all">
                   Learn More <ArrowUpRight className="h-3.5 w-3.5" />
                 </a>
               </div>
@@ -779,7 +779,7 @@ function Leadership() {
                     <a href="#" aria-label={`${l.name} on LinkedIn`} className="h-9 w-9 grid place-items-center border border-white/20 text-white/70 hover:border-gold hover:text-gold transition-colors">
                       <Linkedin className="h-4 w-4" />
                     </a>
-                    <a href="#contact" aria-label={`Email ${l.name}`} className="h-9 w-9 grid place-items-center border border-white/20 text-white/70 hover:border-gold hover:text-gold transition-colors">
+                    <a href="/contact" aria-label={`Email ${l.name}`} className="h-9 w-9 grid place-items-center border border-white/20 text-white/70 hover:border-gold hover:text-gold transition-colors">
                       <Mail className="h-4 w-4" />
                     </a>
                   </div>
@@ -863,7 +863,7 @@ function Careers() {
             intro="Join a firm where the smartest people you know are also the people you'd most want to work with."
           />
           <div className="mt-10">
-            <GoldButton variant="solid" href="#contact">Join Our Team</GoldButton>
+            <GoldButton variant="solid" href="/contact">Join Our Team</GoldButton>
           </div>
         </Reveal>
         <Reveal delay={150}>
