@@ -531,9 +531,9 @@ function Services() {
                 </div>
                 <h3 className="mt-8 text-xl leading-snug text-white">{s.title}</h3>
                 <p className="mt-3 text-sm text-white/60 leading-relaxed flex-1">{s.desc}</p>
-                <a href="/contact" className="mt-6 inline-flex items-center gap-1.5 text-xs uppercase tracking-widest text-gold hover:gap-2.5 transition-all">
+                <Link to="/contact" className="mt-6 inline-flex items-center gap-1.5 text-xs uppercase tracking-widest text-gold hover:gap-2.5 transition-all">
                   Learn More <ArrowUpRight className="h-3.5 w-3.5" />
-                </a>
+                </Link>
               </div>
             </Reveal>
           ))}
@@ -649,9 +649,9 @@ function Insights() {
               eyebrow="Featured Insights"
               title={<>Research, briefings, <span className="italic text-gold">and long-form thinking.</span></>}
             />
-            <a href="#insights" className="text-sm uppercase tracking-widest text-navy-deep border-b border-gold pb-1 hover:text-gold transition-colors">
+            <Link to="/insights" className="text-sm uppercase tracking-widest text-navy-deep border-b border-gold pb-1 hover:text-gold transition-colors">
               View All Insights
-            </a>
+            </Link>
           </div>
         </Reveal>
         <div className="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -793,9 +793,9 @@ function Leadership() {
                     <a href="#" aria-label={`${l.name} on LinkedIn`} className="h-9 w-9 grid place-items-center border border-white/20 text-white/70 hover:border-gold hover:text-gold transition-colors">
                       <Linkedin className="h-4 w-4" />
                     </a>
-                    <a href="/contact" aria-label={`Email ${l.name}`} className="h-9 w-9 grid place-items-center border border-white/20 text-white/70 hover:border-gold hover:text-gold transition-colors">
+                    <Link to="/contact" aria-label={`Email ${l.name}`} className="h-9 w-9 grid place-items-center border border-white/20 text-white/70 hover:border-gold hover:text-gold transition-colors">
                       <Mail className="h-4 w-4" />
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -1340,7 +1340,7 @@ function Footer() {
             <Link to="/privacy" className="hover:text-gold">Privacy Policy</Link>
             <Link to="/terms" className="hover:text-gold">Terms of Use</Link>
             <Link to="/cookies" className="hover:text-gold">Cookie Policy</Link>
-            <a href="#" className="hover:text-gold">Disclosures</a>
+            <Link to="/terms" className="hover:text-gold">Disclosures</Link>
           </div>
         </div>
       </div>
