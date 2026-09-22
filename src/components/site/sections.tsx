@@ -137,6 +137,19 @@ function SectionHeader({
   );
 }
 
+type SitePath =
+  | "/"
+  | "/about"
+  | "/services"
+  | "/industries"
+  | "/insights"
+  | "/case-studies"
+  | "/careers"
+  | "/contact"
+  | "/privacy"
+  | "/terms"
+  | "/cookies";
+
 function GoldButton({
   children,
   variant = "solid",
@@ -145,7 +158,7 @@ function GoldButton({
 }: {
   children: React.ReactNode;
   variant?: "solid" | "outline" | "ghost";
-  href?: string;
+  href?: SitePath;
   className?: string;
 }) {
   const base =
@@ -157,10 +170,10 @@ function GoldButton({
         ? "border border-white/30 text-white hover:border-gold hover:text-gold"
         : "text-white/80 hover:text-gold";
   return (
-    <a href={href} className={`${base} ${styles} ${className}`}>
+    <Link to={href} className={`${base} ${styles} ${className}`}>
       {children}
       <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-    </a>
+    </Link>
   );
 }
 
