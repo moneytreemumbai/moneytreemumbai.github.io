@@ -1316,8 +1316,8 @@ function Footer() {
                 <div className="eyebrow text-white/50">{c.title}</div>
                 <ul className="mt-4 space-y-3">
                   {c.links.map((l) => (
-                    <li key={l}>
-                      <a href="#" className="text-sm text-white/70 hover:text-gold transition-colors">{l}</a>
+                    <li key={l.label}>
+                      <Link to={l.to} className="text-sm text-white/70 hover:text-gold transition-colors">{l.label}</Link>
                     </li>
                   ))}
                 </ul>
