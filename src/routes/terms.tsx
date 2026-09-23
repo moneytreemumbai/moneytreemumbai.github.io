@@ -8,8 +8,13 @@ export const Route = createFileRoute("/terms")({
       { name: "description", content: "Terms that govern your use of the Market Strategy website." },
       { property: "og:title", content: "Terms of Use — Market Strategy" },
       { property: "og:description", content: "Terms governing use of marketstrategy.com." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://marketstrategy.lovable.app/terms" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Terms of Use — Market Strategy" },
+      { name: "twitter:description", content: "Terms governing use of marketstrategy.com." },
     ],
-    links: [{ rel: "canonical", href: "/terms" }],
+    links: [{ rel: "canonical", href: "https://marketstrategy.lovable.app/terms" }],
   }),
 });
 

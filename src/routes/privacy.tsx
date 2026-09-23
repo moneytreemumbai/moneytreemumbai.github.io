@@ -8,8 +8,13 @@ export const Route = createFileRoute("/privacy")({
       { name: "description", content: "How Market Strategy collects, uses, and protects personal information." },
       { property: "og:title", content: "Privacy Policy — Market Strategy" },
       { property: "og:description", content: "Our commitment to privacy and data protection." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://marketstrategy.lovable.app/privacy" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Privacy Policy — Market Strategy" },
+      { name: "twitter:description", content: "Our commitment to privacy and data protection." },
     ],
-    links: [{ rel: "canonical", href: "/privacy" }],
+    links: [{ rel: "canonical", href: "https://marketstrategy.lovable.app/privacy" }],
   }),
 });
 
