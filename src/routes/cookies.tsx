@@ -8,8 +8,13 @@ export const Route = createFileRoute("/cookies")({
       { name: "description", content: "How Market Strategy uses cookies and similar technologies, and how to manage your preferences." },
       { property: "og:title", content: "Cookie Policy — Market Strategy" },
       { property: "og:description", content: "Details about cookies used on marketstrategy.com and your choices." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://marketstrategy.lovable.app/cookies" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Cookie Policy — Market Strategy" },
+      { name: "twitter:description", content: "Details about cookies used on marketstrategy.com and your choices." },
     ],
-    links: [{ rel: "canonical", href: "/cookies" }],
+    links: [{ rel: "canonical", href: "https://marketstrategy.lovable.app/cookies" }],
   }),
 });
 
