@@ -790,9 +790,9 @@ function Leadership() {
                     Two decades advising boards on strategy, capital, and transformation across global markets.
                   </p>
                   <div className="mt-5 flex gap-3">
-                    <a href="#" aria-label={`${l.name} on LinkedIn`} className="h-9 w-9 grid place-items-center border border-white/20 text-white/70 hover:border-gold hover:text-gold transition-colors">
+                    <span aria-hidden="true" className="h-9 w-9 grid place-items-center border border-white/20 text-white/70">
                       <Linkedin className="h-4 w-4" />
-                    </a>
+                    </span>
                     <Link to="/contact" aria-label={`Email ${l.name}`} className="h-9 w-9 grid place-items-center border border-white/20 text-white/70 hover:border-gold hover:text-gold transition-colors">
                       <Mail className="h-4 w-4" />
                     </Link>
