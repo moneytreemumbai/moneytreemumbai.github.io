@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import { CookieConsent } from "@/components/CookieConsent";
+import { SupportAssistant } from "@/components/SupportAssistant";
 import { Footer, Navbar } from "@/components/site/sections";
 
 export function SitePage({ children }: { children: ReactNode }) {
@@ -13,6 +14,7 @@ export function SitePage({ children }: { children: ReactNode }) {
       <main id="main-content">{children}</main>
       <Footer />
       <CookieConsent />
+      <SupportAssistant />
     </>
   );
 }
