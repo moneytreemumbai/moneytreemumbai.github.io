@@ -146,6 +146,7 @@ type SitePath =
   | "/case-studies"
   | "/careers"
   | "/contact"
+  | "/support"
   | "/privacy"
   | "/terms"
   | "/cookies";
@@ -180,16 +181,56 @@ function GoldButton({
 /* --------------------------------- Data ---------------------------------- */
 
 const services = [
-  { icon: Search, title: "Market Research & Intelligence", desc: "Deep sector analysis, competitive benchmarking, and forward-looking market signals." },
-  { icon: Compass, title: "Corporate Strategy", desc: "Board-level strategy design, portfolio choices, and long-range planning." },
-  { icon: TrendingUp, title: "Growth Consulting", desc: "Revenue expansion, pricing, and go-to-market acceleration programs." },
-  { icon: Rocket, title: "Business Transformation", desc: "Operating model redesign and enterprise-wide performance uplift." },
-  { icon: LineChart, title: "Investment Advisory", desc: "Portfolio construction, capital allocation, and buy-side diligence." },
-  { icon: ShieldCheck, title: "Risk Management", desc: "Enterprise risk frameworks, stress testing, and regulatory readiness." },
-  { icon: Wallet, title: "Financial Planning", desc: "Capital structure, cash flow strategy, and long-horizon financial modeling." },
-  { icon: Cpu, title: "Digital Strategy", desc: "AI, data, and platform strategy tied to measurable business outcomes." },
-  { icon: GitMerge, title: "Mergers & Acquisitions", desc: "Origination, valuation, and post-merger value capture." },
-  { icon: Leaf, title: "ESG & Sustainability", desc: "Sustainable finance, decarbonization roadmaps, and reporting frameworks." },
+  {
+    icon: Search,
+    title: "Market Research & Intelligence",
+    desc: "Deep sector analysis, competitive benchmarking, and forward-looking market signals.",
+  },
+  {
+    icon: Compass,
+    title: "Corporate Strategy",
+    desc: "Board-level strategy design, portfolio choices, and long-range planning.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Growth Consulting",
+    desc: "Revenue expansion, pricing, and go-to-market acceleration programs.",
+  },
+  {
+    icon: Rocket,
+    title: "Business Transformation",
+    desc: "Operating model redesign and enterprise-wide performance uplift.",
+  },
+  {
+    icon: LineChart,
+    title: "Investment Advisory",
+    desc: "Portfolio construction, capital allocation, and buy-side diligence.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Risk Management",
+    desc: "Enterprise risk frameworks, stress testing, and regulatory readiness.",
+  },
+  {
+    icon: Wallet,
+    title: "Financial Planning",
+    desc: "Capital structure, cash flow strategy, and long-horizon financial modeling.",
+  },
+  {
+    icon: Cpu,
+    title: "Digital Strategy",
+    desc: "AI, data, and platform strategy tied to measurable business outcomes.",
+  },
+  {
+    icon: GitMerge,
+    title: "Mergers & Acquisitions",
+    desc: "Origination, valuation, and post-merger value capture.",
+  },
+  {
+    icon: Leaf,
+    title: "ESG & Sustainability",
+    desc: "Sustainable finance, decarbonization roadmaps, and reporting frameworks.",
+  },
 ];
 
 const industries = [
@@ -216,30 +257,114 @@ const stats = [
 ];
 
 const process = [
-  { icon: Search, title: "Discovery", text: "Understand ambition, constraints, and the decisions that matter most." },
-  { icon: BarChart3, title: "Market Analysis", text: "Quantify the opportunity with proprietary data and sector intelligence." },
-  { icon: Compass, title: "Strategy Development", text: "Design defensible strategies with clear economic logic and choices." },
-  { icon: Layers, title: "Execution Planning", text: "Translate strategy into sequenced initiatives, owners, and milestones." },
-  { icon: Wrench, title: "Implementation Support", text: "Embed with client teams to move from decision to measurable action." },
-  { icon: Sparkles, title: "Performance Optimization", text: "Instrument outcomes and compound value through continuous refinement." },
+  {
+    icon: Search,
+    title: "Discovery",
+    text: "Understand ambition, constraints, and the decisions that matter most.",
+  },
+  {
+    icon: BarChart3,
+    title: "Market Analysis",
+    text: "Quantify the opportunity with proprietary data and sector intelligence.",
+  },
+  {
+    icon: Compass,
+    title: "Strategy Development",
+    text: "Design defensible strategies with clear economic logic and choices.",
+  },
+  {
+    icon: Layers,
+    title: "Execution Planning",
+    text: "Translate strategy into sequenced initiatives, owners, and milestones.",
+  },
+  {
+    icon: Wrench,
+    title: "Implementation Support",
+    text: "Embed with client teams to move from decision to measurable action.",
+  },
+  {
+    icon: Sparkles,
+    title: "Performance Optimization",
+    text: "Instrument outcomes and compound value through continuous refinement.",
+  },
 ];
 
 const insights = [
-  { tag: "Market Trends", date: "Jun 12, 2026", title: "The New Geography of Capital: Where Growth Migrates Next" },
-  { tag: "Investment Insights", date: "May 28, 2026", title: "Private Credit at Scale — Rethinking Portfolio Construction" },
-  { tag: "Economic Outlook", date: "May 04, 2026", title: "Soft-Landing Playbook: Positioning for the Next Cycle" },
-  { tag: "Digital Transformation", date: "Apr 22, 2026", title: "From Pilots to Platforms: AI That Actually Compounds" },
-  { tag: "Leadership Perspectives", date: "Apr 08, 2026", title: "The CEO Agenda for a Fragmenting World" },
-  { tag: "Industry Reports", date: "Mar 19, 2026", title: "Global Banking 2030 — Winning Models in a New Rate Regime" },
+  {
+    tag: "Market Trends",
+    date: "Jun 12, 2026",
+    title: "The New Geography of Capital: Where Growth Migrates Next",
+  },
+  {
+    tag: "Investment Insights",
+    date: "May 28, 2026",
+    title: "Private Credit at Scale — Rethinking Portfolio Construction",
+  },
+  {
+    tag: "Economic Outlook",
+    date: "May 04, 2026",
+    title: "Soft-Landing Playbook: Positioning for the Next Cycle",
+  },
+  {
+    tag: "Digital Transformation",
+    date: "Apr 22, 2026",
+    title: "From Pilots to Platforms: AI That Actually Compounds",
+  },
+  {
+    tag: "Leadership Perspectives",
+    date: "Apr 08, 2026",
+    title: "The CEO Agenda for a Fragmenting World",
+  },
+  {
+    tag: "Industry Reports",
+    date: "Mar 19, 2026",
+    title: "Global Banking 2030 — Winning Models in a New Rate Regime",
+  },
 ];
 
 const cases = [
-  { industry: "Banking", challenge: "Fragmented digital channels limiting cross-sell.", solution: "Unified client engagement platform and journey redesign.", results: "+38% conversion", roi: "4.2× ROI" },
-  { industry: "Healthcare", challenge: "Margin pressure across specialty portfolio.", solution: "Portfolio rationalization and pricing architecture.", results: "+220 bps EBITDA", roi: "$180M value" },
-  { industry: "Energy", challenge: "Transition strategy amid capital constraints.", solution: "Decarbonization roadmap and green financing structure.", results: "‑32% emissions", roi: "$2.1B financed" },
-  { industry: "Technology", challenge: "Post-merger integration across three regions.", solution: "Operating model redesign and synergy program.", results: "12-mo synergies", roi: "3.7× multiple" },
-  { industry: "Retail", challenge: "Loss of share in premium segment.", solution: "Brand repositioning and store-format economics.", results: "+14% comp sales", roi: "$95M uplift" },
-  { industry: "Real Estate", challenge: "Underperforming asset portfolio.", solution: "Repositioning strategy and capital recycling.", results: "+22% NOI", roi: "6.1× ROI" },
+  {
+    industry: "Banking",
+    challenge: "Fragmented digital channels limiting cross-sell.",
+    solution: "Unified client engagement platform and journey redesign.",
+    results: "+38% conversion",
+    roi: "4.2× ROI",
+  },
+  {
+    industry: "Healthcare",
+    challenge: "Margin pressure across specialty portfolio.",
+    solution: "Portfolio rationalization and pricing architecture.",
+    results: "+220 bps EBITDA",
+    roi: "$180M value",
+  },
+  {
+    industry: "Energy",
+    challenge: "Transition strategy amid capital constraints.",
+    solution: "Decarbonization roadmap and green financing structure.",
+    results: "‑32% emissions",
+    roi: "$2.1B financed",
+  },
+  {
+    industry: "Technology",
+    challenge: "Post-merger integration across three regions.",
+    solution: "Operating model redesign and synergy program.",
+    results: "12-mo synergies",
+    roi: "3.7× multiple",
+  },
+  {
+    industry: "Retail",
+    challenge: "Loss of share in premium segment.",
+    solution: "Brand repositioning and store-format economics.",
+    results: "+14% comp sales",
+    roi: "$95M uplift",
+  },
+  {
+    industry: "Real Estate",
+    challenge: "Underperforming asset portfolio.",
+    solution: "Repositioning strategy and capital recycling.",
+    results: "+22% NOI",
+    roi: "6.1× ROI",
+  },
 ];
 
 const leaders = [
@@ -251,9 +376,24 @@ const leaders = [
 ];
 
 const testimonials = [
-  { name: "Helena Vasquez", company: "CFO, Meridian Capital", quote: "Market Strategy reframed our capital allocation thesis with a rigor we hadn't seen before. Their team became an extension of our own." },
-  { name: "Ravi Menon", company: "CEO, Northline Industries", quote: "A transformation partner in the truest sense — clear thinking, disciplined execution, and unmistakable financial impact." },
-  { name: "Claire Dubois", company: "Chair, Aurelis Group", quote: "The most credible advisors we've worked with in twenty years. Board-ready insight backed by real operational depth." },
+  {
+    name: "Helena Vasquez",
+    company: "CFO, Meridian Capital",
+    quote:
+      "Market Strategy reframed our capital allocation thesis with a rigor we hadn't seen before. Their team became an extension of our own.",
+  },
+  {
+    name: "Ravi Menon",
+    company: "CEO, Northline Industries",
+    quote:
+      "A transformation partner in the truest sense — clear thinking, disciplined execution, and unmistakable financial impact.",
+  },
+  {
+    name: "Claire Dubois",
+    company: "Chair, Aurelis Group",
+    quote:
+      "The most credible advisors we've worked with in twenty years. Board-ready insight backed by real operational depth.",
+  },
 ];
 
 const offices = [
@@ -266,15 +406,35 @@ const offices = [
 ];
 
 const faqs = [
-  { q: "How does an engagement with Market Strategy typically begin?", a: "Every relationship starts with a private diagnostic — a structured conversation with your leadership team to frame the decision at stake before any proposal is written." },
-  { q: "Do you work with mid-market as well as global enterprises?", a: "Yes. We advise across the enterprise spectrum, from founder-led growth companies to Fortune 100 institutions and sovereign portfolios." },
-  { q: "How is your work priced?", a: "Engagements are scoped as fixed-fee programs, retainers, or value-share arrangements — always tied to a defined outcome, not hours consumed." },
-  { q: "Can you support post-strategy execution?", a: "Absolutely. Roughly 60% of our work is implementation-side — embedding senior operators alongside client teams until the outcome is realized." },
+  {
+    q: "How does an engagement with Market Strategy typically begin?",
+    a: "Every relationship starts with a private diagnostic — a structured conversation with your leadership team to frame the decision at stake before any proposal is written.",
+  },
+  {
+    q: "Do you work with mid-market as well as global enterprises?",
+    a: "Yes. We advise across the enterprise spectrum, from founder-led growth companies to Fortune 100 institutions and sovereign portfolios.",
+  },
+  {
+    q: "How is your work priced?",
+    a: "Engagements are scoped as fixed-fee programs, retainers, or value-share arrangements — always tied to a defined outcome, not hours consumed.",
+  },
+  {
+    q: "Can you support post-strategy execution?",
+    a: "Absolutely. Roughly 60% of our work is implementation-side — embedding senior operators alongside client teams until the outcome is realized.",
+  },
 ];
 
 /* -------------------------------- Counter -------------------------------- */
 
-function Counter({ target, prefix = "", suffix = "" }: { target: number; prefix?: string; suffix?: string }) {
+function Counter({
+  target,
+  prefix = "",
+  suffix = "",
+}: {
+  target: number;
+  prefix?: string;
+  suffix?: string;
+}) {
   const ref = useRef<HTMLSpanElement>(null);
   const [n, setN] = useState(0);
   useEffect(() => {
@@ -331,17 +491,19 @@ function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-navy-deep/90 backdrop-blur-xl border-b border-white/10"
-          : "bg-transparent"
+        scrolled ? "bg-navy-deep/90 backdrop-blur-xl border-b border-white/10" : "bg-transparent"
       }`}
     >
       <div className="container-x flex items-center justify-between h-20">
         <Link to="/" className="flex items-center gap-2.5 text-white">
-          <div className="h-8 w-8 grid place-items-center border border-gold/50 text-gold font-display text-lg">M</div>
+          <div className="h-8 w-8 grid place-items-center border border-gold/50 text-gold font-display text-lg">
+            M
+          </div>
           <div className="leading-tight">
             <div className="font-display text-lg tracking-tight">Market Strategy</div>
-            <div className="text-[10px] tracking-[0.24em] text-white/60 uppercase">Est. Global Advisory</div>
+            <div className="text-[10px] tracking-[0.24em] text-white/60 uppercase">
+              Est. Global Advisory
+            </div>
           </div>
         </Link>
         <nav className="hidden lg:flex items-center gap-8" aria-label="Main">
@@ -378,11 +540,20 @@ function Navbar() {
         <div className="lg:hidden bg-navy-deep border-t border-white/10">
           <div className="container-x py-6 flex flex-col gap-4">
             {links.map((l) => (
-              <Link key={l.href} to={l.href} className="text-white/80 hover:text-gold text-base" onClick={() => setOpen(false)}>
+              <Link
+                key={l.href}
+                to={l.href}
+                className="text-white/80 hover:text-gold text-base"
+                onClick={() => setOpen(false)}
+              >
                 {l.label}
               </Link>
             ))}
-            <Link to="/contact" onClick={() => setOpen(false)} className="mt-2 inline-flex items-center justify-center h-11 px-5 text-sm text-navy-deep bg-gold">
+            <Link
+              to="/contact"
+              onClick={() => setOpen(false)}
+              className="mt-2 inline-flex items-center justify-center h-11 px-5 text-sm text-navy-deep bg-gold"
+            >
               Talk to an Expert
             </Link>
           </div>
@@ -396,7 +567,10 @@ function Navbar() {
 
 function Hero() {
   return (
-    <section id="top" className="relative min-h-screen flex items-center overflow-hidden bg-navy-deep">
+    <section
+      id="top"
+      className="relative min-h-screen flex items-center overflow-hidden bg-navy-deep"
+    >
       <img
         src={heroSkyline}
         alt=""
@@ -429,13 +603,17 @@ function Hero() {
             <span className="italic text-gold-soft">Market Leaders</span>
           </h1>
           <p className="mt-8 max-w-2xl text-lg text-white/75 leading-relaxed">
-            Helping organizations unlock sustainable growth through market intelligence,
-            strategic consulting, digital transformation, and investment advisory — at
-            enterprise scale, across five continents.
+            Helping organizations unlock sustainable growth through market intelligence, strategic
+            consulting, digital transformation, and investment advisory — at enterprise scale,
+            across five continents.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
-            <GoldButton variant="solid" href="/contact">Get Started</GoldButton>
-            <GoldButton variant="outline" href="/contact">Talk to an Expert</GoldButton>
+            <GoldButton variant="solid" href="/contact">
+              Get Started
+            </GoldButton>
+            <GoldButton variant="outline" href="/contact">
+              Talk to an Expert
+            </GoldButton>
           </div>
           <div className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-8 max-w-3xl border-t border-white/15 pt-8">
             {[
@@ -487,15 +665,32 @@ function About() {
         <Reveal delay={150}>
           <SectionHeader
             eyebrow="About Market Strategy"
-            title={<>Strategic counsel <span className="italic text-gold">built for consequential decisions.</span></>}
+            title={
+              <>
+                Strategic counsel{" "}
+                <span className="italic text-gold">built for consequential decisions.</span>
+              </>
+            }
             intro="Market Strategy is an independent global advisory firm. We help enterprises navigate structural change with clarity — combining the intellectual rigor of a research house with the execution discipline of a top-tier consultancy."
           />
           <div className="mt-10 grid sm:grid-cols-2 gap-8">
             {[
-              { title: "Vision", body: "To be the world's most trusted independent strategic advisor to enterprise leaders." },
-              { title: "Mission", body: "Turn complexity into competitive advantage through evidence, judgment, and disciplined execution." },
-              { title: "Values", body: "Independence. Intellectual honesty. Long-term partnership. Measurable impact." },
-              { title: "Global Presence", body: "Six flagship offices, 35 country footprint, and a network of sector specialists." },
+              {
+                title: "Vision",
+                body: "To be the world's most trusted independent strategic advisor to enterprise leaders.",
+              },
+              {
+                title: "Mission",
+                body: "Turn complexity into competitive advantage through evidence, judgment, and disciplined execution.",
+              },
+              {
+                title: "Values",
+                body: "Independence. Intellectual honesty. Long-term partnership. Measurable impact.",
+              },
+              {
+                title: "Global Presence",
+                body: "Six flagship offices, 35 country footprint, and a network of sector specialists.",
+              },
             ].map((b) => (
               <div key={b.title} className="border-t border-border pt-5">
                 <div className="eyebrow text-navy-deep/70">{b.title}</div>
@@ -511,14 +706,28 @@ function About() {
 
 function Services() {
   return (
-    <section id="services" className="relative py-28 md:py-36 bg-navy-deep text-white overflow-hidden">
-      <img src={patternGrid} alt="" width={1920} height={1080} loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-40" />
+    <section
+      id="services"
+      className="relative py-28 md:py-36 bg-navy-deep text-white overflow-hidden"
+    >
+      <img
+        src={patternGrid}
+        alt=""
+        width={1920}
+        height={1080}
+        loading="lazy"
+        className="absolute inset-0 h-full w-full object-cover opacity-40"
+      />
       <div className="container-x relative">
         <Reveal>
           <SectionHeader
             eyebrow="Practices"
             invert
-            title={<>Ten disciplines. <span className="italic text-gold">One integrated firm.</span></>}
+            title={
+              <>
+                Ten disciplines. <span className="italic text-gold">One integrated firm.</span>
+              </>
+            }
             intro="Cross-disciplinary teams combine sector depth with functional expertise — deployed as a single answer, not siloed workstreams."
           />
         </Reveal>
@@ -531,7 +740,10 @@ function Services() {
                 </div>
                 <h3 className="mt-8 text-xl leading-snug text-white">{s.title}</h3>
                 <p className="mt-3 text-sm text-white/60 leading-relaxed flex-1">{s.desc}</p>
-                <Link to="/contact" className="mt-6 inline-flex items-center gap-1.5 text-xs uppercase tracking-widest text-gold hover:gap-2.5 transition-all">
+                <Link
+                  to="/contact"
+                  className="mt-6 inline-flex items-center gap-1.5 text-xs uppercase tracking-widest text-gold hover:gap-2.5 transition-all"
+                >
                   Learn More <ArrowUpRight className="h-3.5 w-3.5" />
                 </Link>
               </div>
@@ -550,7 +762,11 @@ function Industries() {
         <Reveal>
           <SectionHeader
             eyebrow="Industries"
-            title={<>Sector fluency across the <span className="italic text-gold">global economy.</span></>}
+            title={
+              <>
+                Sector fluency across the <span className="italic text-gold">global economy.</span>
+              </>
+            }
             intro="Every engagement is staffed with senior operators who have led inside the industry they now advise."
           />
         </Reveal>
@@ -579,14 +795,24 @@ function Industries() {
 function WhyUs() {
   return (
     <section id="why" className="relative py-28 md:py-36 bg-navy text-white overflow-hidden">
-      <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 50% 0%, oklch(0.78 0.13 82 / 0.12), transparent 60%)" }} />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse at 50% 0%, oklch(0.78 0.13 82 / 0.12), transparent 60%)",
+        }}
+      />
       <div className="container-x relative">
         <Reveal>
           <SectionHeader
             eyebrow="Why Market Strategy"
             invert
             center
-            title={<>Two decades. <span className="italic text-gold">Measurable outcomes.</span></>}
+            title={
+              <>
+                Two decades. <span className="italic text-gold">Measurable outcomes.</span>
+              </>
+            }
             intro="A track record built one engagement at a time — with the world's most demanding boards and investment committees."
           />
         </Reveal>
@@ -597,7 +823,9 @@ function WhyUs() {
                 <div className="font-display text-5xl md:text-6xl text-gold">
                   <Counter target={s.value} prefix={s.prefix} suffix={s.suffix} />
                 </div>
-                <div className="mt-3 text-xs uppercase tracking-[0.2em] text-white/60">{s.label}</div>
+                <div className="mt-3 text-xs uppercase tracking-[0.2em] text-white/60">
+                  {s.label}
+                </div>
               </div>
             </Reveal>
           ))}
@@ -614,7 +842,12 @@ function Process() {
         <Reveal>
           <SectionHeader
             eyebrow="Our Process"
-            title={<>Six steps from ambition to <span className="italic text-gold">enduring outcome.</span></>}
+            title={
+              <>
+                Six steps from ambition to{" "}
+                <span className="italic text-gold">enduring outcome.</span>
+              </>
+            }
           />
         </Reveal>
         <div className="mt-16 relative">
@@ -647,9 +880,17 @@ function Insights() {
           <div className="flex flex-wrap items-end justify-between gap-6">
             <SectionHeader
               eyebrow="Featured Insights"
-              title={<>Research, briefings, <span className="italic text-gold">and long-form thinking.</span></>}
+              title={
+                <>
+                  Research, briefings,{" "}
+                  <span className="italic text-gold">and long-form thinking.</span>
+                </>
+              }
             />
-            <Link to="/insights" className="text-sm uppercase tracking-widest text-navy-deep border-b border-gold pb-1 hover:text-gold transition-colors">
+            <Link
+              to="/insights"
+              className="text-sm uppercase tracking-widest text-navy-deep border-b border-gold pb-1 hover:text-gold transition-colors"
+            >
               View All Insights
             </Link>
           </div>
@@ -704,7 +945,11 @@ function CaseStudies() {
         <Reveal>
           <SectionHeader
             eyebrow="Case Studies"
-            title={<>Selected work. <span className="italic text-gold">Real economic impact.</span></>}
+            title={
+              <>
+                Selected work. <span className="italic text-gold">Real economic impact.</span>
+              </>
+            }
             intro="A small window into engagements delivered for boards, investors, and executive teams over the last decade."
           />
         </Reveal>
@@ -733,15 +978,20 @@ function CaseStudies() {
                 </div>
                 <h3 className="mt-4 text-2xl leading-snug text-foreground">{c.challenge}</h3>
                 <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
-                  <span className="text-foreground font-medium">Approach — </span>{c.solution}
+                  <span className="text-foreground font-medium">Approach — </span>
+                  {c.solution}
                 </p>
                 <div className="mt-6 pt-6 border-t border-border grid grid-cols-2 gap-4">
                   <div>
-                    <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Result</div>
+                    <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
+                      Result
+                    </div>
                     <div className="mt-1 font-display text-xl text-navy-deep">{c.results}</div>
                   </div>
                   <div>
-                    <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Impact</div>
+                    <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
+                      Impact
+                    </div>
                     <div className="mt-1 font-display text-xl text-gold">{c.roi}</div>
                   </div>
                 </div>
@@ -762,7 +1012,11 @@ function Leadership() {
           <SectionHeader
             eyebrow="Leadership"
             invert
-            title={<>The senior team <span className="italic text-gold">behind every engagement.</span></>}
+            title={
+              <>
+                The senior team <span className="italic text-gold">behind every engagement.</span>
+              </>
+            }
             intro="Our partners average 20+ years leading strategy, capital, and transformation inside global institutions."
           />
         </Reveal>
@@ -781,19 +1035,33 @@ function Leadership() {
                       {l.initials}
                     </div>
                   </div>
-                  <div className="absolute inset-0" style={{ background: "radial-gradient(circle at 50% 100%, oklch(0.17 0.04 265) 0%, transparent 70%)" }} />
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background:
+                        "radial-gradient(circle at 50% 100%, oklch(0.17 0.04 265) 0%, transparent 70%)",
+                    }}
+                  />
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg text-white leading-tight">{l.name}</h3>
                   <div className="mt-1 text-xs uppercase tracking-widest text-gold">{l.role}</div>
                   <p className="mt-3 text-sm text-white/60 leading-relaxed">
-                    Two decades advising boards on strategy, capital, and transformation across global markets.
+                    Two decades advising boards on strategy, capital, and transformation across
+                    global markets.
                   </p>
                   <div className="mt-5 flex gap-3">
-                    <span aria-hidden="true" className="h-9 w-9 grid place-items-center border border-white/20 text-white/70">
+                    <span
+                      aria-hidden="true"
+                      className="h-9 w-9 grid place-items-center border border-white/20 text-white/70"
+                    >
                       <Linkedin className="h-4 w-4" />
                     </span>
-                    <Link to="/contact" aria-label={`Email ${l.name}`} className="h-9 w-9 grid place-items-center border border-white/20 text-white/70 hover:border-gold hover:text-gold transition-colors">
+                    <Link
+                      to="/contact"
+                      aria-label={`Email ${l.name}`}
+                      className="h-9 w-9 grid place-items-center border border-white/20 text-white/70 hover:border-gold hover:text-gold transition-colors"
+                    >
                       <Mail className="h-4 w-4" />
                     </Link>
                   </div>
@@ -818,10 +1086,16 @@ function Testimonials() {
     <section className="py-28 md:py-36 bg-background">
       <div className="container-x max-w-4xl">
         <Reveal>
-          <div className="eyebrow"><span className="gold-line" />Client Voices</div>
+          <div className="eyebrow">
+            <span className="gold-line" />
+            Client Voices
+          </div>
         </Reveal>
         <Reveal delay={100}>
-          <blockquote key={i} className="mt-8 font-display text-3xl md:text-4xl lg:text-5xl leading-[1.2] text-navy-deep animate-fade">
+          <blockquote
+            key={i}
+            className="mt-8 font-display text-3xl md:text-4xl lg:text-5xl leading-[1.2] text-navy-deep animate-fade"
+          >
             <span className="text-gold text-6xl leading-none align-top mr-2">“</span>
             {t.quote}
           </blockquote>
@@ -830,7 +1104,10 @@ function Testimonials() {
           <div className="mt-10 flex items-center justify-between flex-wrap gap-6">
             <div className="flex items-center gap-4">
               <div className="h-14 w-14 grid place-items-center bg-navy-deep text-gold font-display text-xl">
-                {t.name.split(" ").map((n) => n[0]).join("")}
+                {t.name
+                  .split(" ")
+                  .map((n) => n[0])
+                  .join("")}
               </div>
               <div>
                 <div className="font-display text-lg text-navy-deep">{t.name}</div>
@@ -864,31 +1141,59 @@ function Testimonials() {
 function Careers() {
   return (
     <section id="careers" className="relative py-28 md:py-36 bg-navy text-white overflow-hidden">
-      <div className="absolute inset-0 opacity-30" style={{
-        backgroundImage: "linear-gradient(90deg, oklch(0.78 0.13 82 / 0.1) 1px, transparent 1px)",
-        backgroundSize: "80px 100%",
-      }} />
+      <div
+        className="absolute inset-0 opacity-30"
+        style={{
+          backgroundImage: "linear-gradient(90deg, oklch(0.78 0.13 82 / 0.1) 1px, transparent 1px)",
+          backgroundSize: "80px 100%",
+        }}
+      />
       <div className="container-x relative grid lg:grid-cols-2 gap-16 items-center">
         <Reveal>
           <SectionHeader
             eyebrow="Careers"
             invert
-            title={<>Do the most consequential <span className="italic text-gold">work of your career.</span></>}
+            title={
+              <>
+                Do the most consequential{" "}
+                <span className="italic text-gold">work of your career.</span>
+              </>
+            }
             intro="Join a firm where the smartest people you know are also the people you'd most want to work with."
           />
           <div className="mt-10">
-            <GoldButton variant="solid" href="/contact">Join Our Team</GoldButton>
+            <GoldButton variant="solid" href="/contact">
+              Join Our Team
+            </GoldButton>
           </div>
         </Reveal>
         <Reveal delay={150}>
           <div className="grid sm:grid-cols-2 gap-px bg-white/10 border border-white/10">
             {[
-              { title: "Company Culture", body: "Meritocratic, apprenticeship-driven, and fiercely collaborative." },
-              { title: "Benefits", body: "Market-leading compensation, equity, healthcare, and continued learning." },
-              { title: "Open Positions", body: "Consultants, analysts, and senior advisors across all offices." },
-              { title: "Graduate Programs", body: "Two-year rotation with sponsored MBA pathways." },
-              { title: "Internships", body: "Summer associate programs in London, New York, and Singapore." },
-              { title: "Global Mobility", body: "Rotate between our six flagship offices during your first five years." },
+              {
+                title: "Company Culture",
+                body: "Meritocratic, apprenticeship-driven, and fiercely collaborative.",
+              },
+              {
+                title: "Benefits",
+                body: "Market-leading compensation, equity, healthcare, and continued learning.",
+              },
+              {
+                title: "Open Positions",
+                body: "Consultants, analysts, and senior advisors across all offices.",
+              },
+              {
+                title: "Graduate Programs",
+                body: "Two-year rotation with sponsored MBA pathways.",
+              },
+              {
+                title: "Internships",
+                body: "Summer associate programs in London, New York, and Singapore.",
+              },
+              {
+                title: "Global Mobility",
+                body: "Rotate between our six flagship offices during your first five years.",
+              },
             ].map((b) => (
               <div key={b.title} className="bg-navy p-6">
                 <div className="text-gold text-xs uppercase tracking-widest">{b.title}</div>
@@ -911,7 +1216,11 @@ function GlobalOffices() {
           <SectionHeader
             eyebrow="Global Offices"
             center
-            title={<>Six flagships. <span className="italic text-gold">One integrated firm.</span></>}
+            title={
+              <>
+                Six flagships. <span className="italic text-gold">One integrated firm.</span>
+              </>
+            }
           />
         </Reveal>
         <Reveal delay={120}>
@@ -931,11 +1240,32 @@ function GlobalOffices() {
               </defs>
               <rect width="100" height="60" fill="url(#dots)" mask="url(#worldMask)" />
               {offices.map((o) => (
-                <g key={o.city} onMouseEnter={() => setActive(o.city)} onMouseLeave={() => setActive(null)} className="cursor-pointer">
-                  <circle cx={o.coords.x} cy={o.coords.y} r={active === o.city ? 1.6 : 1.1} fill="oklch(0.78 0.13 82)" style={{ transition: "r 0.3s" }} />
+                <g
+                  key={o.city}
+                  onMouseEnter={() => setActive(o.city)}
+                  onMouseLeave={() => setActive(null)}
+                  className="cursor-pointer"
+                >
+                  <circle
+                    cx={o.coords.x}
+                    cy={o.coords.y}
+                    r={active === o.city ? 1.6 : 1.1}
+                    fill="oklch(0.78 0.13 82)"
+                    style={{ transition: "r 0.3s" }}
+                  />
                   <circle cx={o.coords.x} cy={o.coords.y} r="2.5" fill="oklch(0.78 0.13 82 / 0.25)">
-                    <animate attributeName="r" values="2.5;5;2.5" dur="2.8s" repeatCount="indefinite" />
-                    <animate attributeName="opacity" values="0.6;0;0.6" dur="2.8s" repeatCount="indefinite" />
+                    <animate
+                      attributeName="r"
+                      values="2.5;5;2.5"
+                      dur="2.8s"
+                      repeatCount="indefinite"
+                    />
+                    <animate
+                      attributeName="opacity"
+                      values="0.6;0;0.6"
+                      dur="2.8s"
+                      repeatCount="indefinite"
+                    />
                   </circle>
                   <text
                     x={o.coords.x + 2}
@@ -963,7 +1293,9 @@ function GlobalOffices() {
                     <MapPin className="h-4 w-4" />
                     <div className="font-display text-lg text-white">{o.city}</div>
                   </div>
-                  <div className="mt-1 text-xs uppercase tracking-widest text-white/50">{o.region}</div>
+                  <div className="mt-1 text-xs uppercase tracking-widest text-white/50">
+                    {o.region}
+                  </div>
                 </button>
               ))}
             </div>
@@ -1003,7 +1335,11 @@ function FAQ() {
         <Reveal>
           <SectionHeader
             eyebrow="Frequently Asked"
-            title={<>What clients most often <span className="italic text-gold">want to know.</span></>}
+            title={
+              <>
+                What clients most often <span className="italic text-gold">want to know.</span>
+              </>
+            }
           />
         </Reveal>
         <div className="mt-14 border-t border-border">
@@ -1016,12 +1352,16 @@ function FAQ() {
                   className="w-full py-6 flex items-start justify-between gap-6 text-left group"
                   aria-expanded={isOpen}
                 >
-                  <span className="font-display text-lg md:text-xl text-navy-deep group-hover:text-gold transition-colors">{f.q}</span>
+                  <span className="font-display text-lg md:text-xl text-navy-deep group-hover:text-gold transition-colors">
+                    {f.q}
+                  </span>
                   <span className="mt-1 h-8 w-8 grid place-items-center border border-navy-deep text-navy-deep shrink-0">
                     {isOpen ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
                   </span>
                 </button>
-                <div className={`grid transition-all duration-500 ${isOpen ? "grid-rows-[1fr] opacity-100 pb-6" : "grid-rows-[0fr] opacity-0"}`}>
+                <div
+                  className={`grid transition-all duration-500 ${isOpen ? "grid-rows-[1fr] opacity-100 pb-6" : "grid-rows-[0fr] opacity-0"}`}
+                >
                   <div className="overflow-hidden">
                     <p className="text-muted-foreground leading-relaxed max-w-2xl">{f.a}</p>
                   </div>
@@ -1040,7 +1380,9 @@ function Contact() {
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
   const mountedAtRef = useRef<number>(Date.now());
-  useEffect(() => { mountedAtRef.current = Date.now(); }, []);
+  useEffect(() => {
+    mountedAtRef.current = Date.now();
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -1118,38 +1460,84 @@ function Contact() {
     }
   }
 
-  const fields: { name: string; label: string; type: string; placeholder: string; required?: boolean }[] = [
-    { name: "name", label: "Full Name", type: "text", placeholder: "Jane Whitmore", required: true },
-    { name: "email", label: "Business Email", type: "email", placeholder: "jane@company.com", required: true },
-    { name: "company", label: "Company", type: "text", placeholder: "Your organization", required: true },
+  const fields: {
+    name: string;
+    label: string;
+    type: string;
+    placeholder: string;
+    required?: boolean;
+  }[] = [
+    {
+      name: "name",
+      label: "Full Name",
+      type: "text",
+      placeholder: "Jane Whitmore",
+      required: true,
+    },
+    {
+      name: "email",
+      label: "Business Email",
+      type: "email",
+      placeholder: "jane@company.com",
+      required: true,
+    },
+    {
+      name: "company",
+      label: "Company",
+      type: "text",
+      placeholder: "Your organization",
+      required: true,
+    },
     { name: "role", label: "Role", type: "text", placeholder: "e.g. CFO" },
   ];
 
   return (
-    <section id="contact" className="py-20 md:py-28 lg:py-36 bg-navy-deep text-white relative overflow-hidden">
-      <div className="absolute inset-0 opacity-10 pointer-events-none" aria-hidden="true" style={{
-        backgroundImage: "linear-gradient(oklch(0.78 0.13 82 / 0.3) 1px, transparent 1px)",
-        backgroundSize: "100% 60px",
-      }} />
+    <section
+      id="contact"
+      className="py-20 md:py-28 lg:py-36 bg-navy-deep text-white relative overflow-hidden"
+    >
+      <div
+        className="absolute inset-0 opacity-10 pointer-events-none"
+        aria-hidden="true"
+        style={{
+          backgroundImage: "linear-gradient(oklch(0.78 0.13 82 / 0.3) 1px, transparent 1px)",
+          backgroundSize: "100% 60px",
+        }}
+      />
       <div className="container-x relative grid lg:grid-cols-2 gap-12 lg:gap-16">
         <div>
           <Reveal>
             <SectionHeader
               eyebrow="Get in Touch"
               invert
-              title={<>Start a conversation <span className="italic text-gold">with our team.</span></>}
+              title={
+                <>
+                  Start a conversation <span className="italic text-gold">with our team.</span>
+                </>
+              }
               intro="Whether you're at the top of a market or navigating structural change, we're ready to help you make the next decision that matters."
             />
           </Reveal>
           <div className="mt-10 space-y-6">
             {[
-              { icon: MapPin, label: "Headquarters", value: "One Financial Plaza, 42nd Floor, New York, NY 10005" },
+              {
+                icon: MapPin,
+                label: "Headquarters",
+                value: "One Financial Plaza, 42nd Floor, New York, NY 10005",
+              },
               { icon: Mail, label: "Email", value: "contact@marketstrategy.com" },
               { icon: Phone, label: "Phone", value: "+1 (212) 555 0140" },
-              { icon: Globe2, label: "Global Offices", value: "New York · London · Frankfurt · Dubai · Mumbai · Singapore" },
+              {
+                icon: Globe2,
+                label: "Global Offices",
+                value: "New York · London · Frankfurt · Dubai · Mumbai · Singapore",
+              },
             ].map((c) => (
               <div key={c.label} className="flex gap-4 border-t border-white/10 pt-6">
-                <div className="h-10 w-10 grid place-items-center border border-gold/40 text-gold shrink-0" aria-hidden="true">
+                <div
+                  className="h-10 w-10 grid place-items-center border border-gold/40 text-gold shrink-0"
+                  aria-hidden="true"
+                >
                   <c.icon className="h-4 w-4" />
                 </div>
                 <div className="min-w-0">
@@ -1167,7 +1555,9 @@ function Contact() {
             aria-labelledby="contact-form-title"
             className="bg-white/[0.03] border border-white/10 backdrop-blur-md p-6 sm:p-8 md:p-10"
           >
-            <h3 id="contact-form-title" className="font-display text-2xl text-white">Request a private briefing</h3>
+            <h3 id="contact-form-title" className="font-display text-2xl text-white">
+              Request a private briefing
+            </h3>
             <p className="mt-2 text-sm text-white/70">Typical response within one business day.</p>
 
             {/* Honeypot: hidden from users, visible to bots */}
@@ -1184,37 +1574,58 @@ function Contact() {
                 return (
                   <label key={f.name} className="block">
                     <span className="text-xs uppercase tracking-widest text-white/70">
-                      {f.label}{f.required && <span className="text-gold" aria-hidden="true"> *</span>}
+                      {f.label}
+                      {f.required && (
+                        <span className="text-gold" aria-hidden="true">
+                          {" "}
+                          *
+                        </span>
+                      )}
                     </span>
                     <input
                       required={f.required}
                       type={f.type}
                       name={f.name}
                       placeholder={f.placeholder}
-                      autoComplete={f.name === "email" ? "email" : f.name === "name" ? "name" : "off"}
+                      autoComplete={
+                        f.name === "email" ? "email" : f.name === "name" ? "name" : "off"
+                      }
                       aria-invalid={err ? true : undefined}
                       aria-describedby={err ? `${f.name}-err` : undefined}
                       className="mt-2 w-full bg-transparent border-b border-white/20 py-3 text-white placeholder:text-white/40 focus:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/40 transition-colors"
                     />
-                    {err && <span id={`${f.name}-err`} className="mt-1 block text-xs text-red-300">{err}</span>}
+                    {err && (
+                      <span id={`${f.name}-err`} className="mt-1 block text-xs text-red-300">
+                        {err}
+                      </span>
+                    )}
                   </label>
                 );
               })}
             </div>
             <label className="block mt-6">
-              <span className="text-xs uppercase tracking-widest text-white/70">Area of Interest</span>
+              <span className="text-xs uppercase tracking-widest text-white/70">
+                Area of Interest
+              </span>
               <select
                 name="interest"
                 defaultValue={services[0]?.title}
                 className="mt-2 w-full bg-transparent border-b border-white/20 py-3 text-white focus:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
               >
                 {services.map((s) => (
-                  <option key={s.title} className="bg-navy-deep text-white">{s.title}</option>
+                  <option key={s.title} className="bg-navy-deep text-white">
+                    {s.title}
+                  </option>
                 ))}
               </select>
             </label>
             <label className="block mt-6">
-              <span className="text-xs uppercase tracking-widest text-white/70">How can we help? <span className="text-gold" aria-hidden="true">*</span></span>
+              <span className="text-xs uppercase tracking-widest text-white/70">
+                How can we help?{" "}
+                <span className="text-gold" aria-hidden="true">
+                  *
+                </span>
+              </span>
               <textarea
                 required
                 name="message"
@@ -1225,16 +1636,18 @@ function Contact() {
                 aria-invalid={fieldErrors.message?.[0] ? true : undefined}
                 className="mt-2 w-full bg-transparent border-b border-white/20 py-3 text-white placeholder:text-white/40 focus:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/40 resize-none"
               />
-              {fieldErrors.message?.[0] && <span className="mt-1 block text-xs text-red-300">{fieldErrors.message[0]}</span>}
+              {fieldErrors.message?.[0] && (
+                <span className="mt-1 block text-xs text-red-300">{fieldErrors.message[0]}</span>
+              )}
             </label>
 
             <div aria-live="polite" className="mt-6 min-h-[1.25rem] text-sm">
               {status === "success" && (
-                <p className="text-gold">Thank you. Our team will be in touch within one business day.</p>
+                <p className="text-gold">
+                  Thank you. Our team will be in touch within one business day.
+                </p>
               )}
-              {status === "error" && (
-                <p className="text-red-300">{errorMsg}</p>
-              )}
+              {status === "error" && <p className="text-red-300">{errorMsg}</p>}
             </div>
 
             <button
@@ -1242,7 +1655,13 @@ function Contact() {
               disabled={status === "submitting"}
               className="mt-4 w-full inline-flex items-center justify-center gap-2 min-h-12 py-4 bg-gold text-navy-deep font-medium tracking-wide hover:bg-gold-soft transition-colors disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-deep"
             >
-              {status === "submitting" ? "Sending…" : (<>Submit Inquiry <ArrowUpRight className="h-4 w-4" aria-hidden="true" /></>)}
+              {status === "submitting" ? (
+                "Sending…"
+              ) : (
+                <>
+                  Submit Inquiry <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                </>
+              )}
             </button>
           </form>
         </Reveal>
@@ -1299,11 +1718,14 @@ function Footer() {
         <div className="grid lg:grid-cols-[1.4fr_2fr_1fr] gap-16">
           <div>
             <div className="flex items-center gap-2.5">
-              <div className="h-9 w-9 grid place-items-center border border-gold/50 text-gold font-display text-lg">M</div>
+              <div className="h-9 w-9 grid place-items-center border border-gold/50 text-gold font-display text-lg">
+                M
+              </div>
               <div className="font-display text-xl">Market Strategy</div>
             </div>
             <p className="mt-6 text-sm text-white/60 leading-relaxed max-w-sm">
-              Independent global advisory to boards, investors, and executive teams navigating consequential decisions.
+              Independent global advisory to boards, investors, and executive teams navigating
+              consequential decisions.
             </p>
             <div className="mt-8">
               <div className="eyebrow text-white/50">Newsletter</div>
@@ -1317,7 +1739,12 @@ function Footer() {
                 <ul className="mt-4 space-y-3">
                   {c.links.map((l) => (
                     <li key={l.label}>
-                      <Link to={l.to} className="text-sm text-white/70 hover:text-gold transition-colors">{l.label}</Link>
+                      <Link
+                        to={l.to}
+                        className="text-sm text-white/70 hover:text-gold transition-colors"
+                      >
+                        {l.label}
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -1335,12 +1762,22 @@ function Footer() {
           </div>
         </div>
         <div className="mt-16 pt-8 border-t border-white/10 flex flex-wrap items-center justify-between gap-6">
-          <div className="text-xs text-white/50">© {new Date().getFullYear()} Market Strategy Advisory LLC. All rights reserved.</div>
+          <div className="text-xs text-white/50">
+            © {new Date().getFullYear()} Market Strategy Advisory LLC. All rights reserved.
+          </div>
           <div className="flex flex-wrap gap-6 text-xs text-white/60">
-            <Link to="/privacy" className="hover:text-gold">Privacy Policy</Link>
-            <Link to="/terms" className="hover:text-gold">Terms of Use</Link>
-            <Link to="/cookies" className="hover:text-gold">Cookie Policy</Link>
-            <Link to="/terms" className="hover:text-gold">Disclosures</Link>
+            <Link to="/privacy" className="hover:text-gold">
+              Privacy Policy
+            </Link>
+            <Link to="/terms" className="hover:text-gold">
+              Terms of Use
+            </Link>
+            <Link to="/cookies" className="hover:text-gold">
+              Cookie Policy
+            </Link>
+            <Link to="/terms" className="hover:text-gold">
+              Disclosures
+            </Link>
           </div>
         </div>
       </div>

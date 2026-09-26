@@ -72,7 +72,9 @@ export const Route = createFileRoute("/api/chat")({
             return new Response(null, { status: 499 });
           }
           console.error("Support assistant request failed", error);
-          return new Response("The support assistant could not respond right now.", { status: 500 });
+          return new Response("The support assistant could not respond right now.", {
+            status: 500,
+          });
         }
       },
     },
