@@ -66,16 +66,20 @@ function useVoiceSupport(onTranscript: (text: string) => void) {
   const [voiceAvailable, setVoiceAvailable] = useState(false);
 
   useEffect(() => {
-    const supported = "SpeechRecognition" in window || "webkitSpeechRecognition" in window;
-    setVoiceAvailable(supported || "speechSynthesis" in window);
-  }, []);
-
-  const startListening = () => {
-    if (!("SpeechRecognition" in window || "webkitSpeechRecognition" in window)) return;
     const browserWindow = window as Window & {
       SpeechRecognition?: SpeechRecognitionConstructor;
       webkitSpeechRecognition?: SpeechRecognitionConstructor;
     };
+    const supported = Boolean(browserWindow.SpeechRecognition ?? browserWindow.webkitSpeechRecognition);
+    setVoiceAvailable(supported || "speechSynthesis" in window);
+  }, []);
+
+  const startListening = () => {
+    const browserWindow = window as Window & {
+      SpeechRecognition?: SpeechRecognitionConstructor;
+      webkitSpeechRecognition?: SpeechRecognitionConstructor;
+    };
+    if (!browserWindow.SpeechRecognition && !browserWindow.webkitSpeechRecognition) return;
     const Recognition = browserWindow.SpeechRecognition ?? browserWindow.webkitSpeechRecognition;
     if (!Recognition) return;
     const recognition = new Recognition();
