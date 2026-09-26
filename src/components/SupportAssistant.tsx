@@ -70,7 +70,9 @@ function useVoiceSupport(onTranscript: (text: string) => void) {
       SpeechRecognition?: SpeechRecognitionConstructor;
       webkitSpeechRecognition?: SpeechRecognitionConstructor;
     };
-    const supported = Boolean(browserWindow.SpeechRecognition ?? browserWindow.webkitSpeechRecognition);
+    const supported = Boolean(
+      browserWindow.SpeechRecognition ?? browserWindow.webkitSpeechRecognition,
+    );
     setVoiceAvailable(supported || "speechSynthesis" in window);
   }, []);
 
