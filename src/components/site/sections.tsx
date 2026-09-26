@@ -146,6 +146,7 @@ type SitePath =
   | "/case-studies"
   | "/careers"
   | "/contact"
+  | "/support"
   | "/privacy"
   | "/terms"
   | "/cookies";

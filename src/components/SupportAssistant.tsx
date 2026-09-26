@@ -80,7 +80,12 @@ function useVoiceSupport(onTranscript: (text: string) => void) {
 
   const startListening = () => {
     if (!("SpeechRecognition" in window || "webkitSpeechRecognition" in window)) return;
-    const Recognition = (window.SpeechRecognition ?? window.webkitSpeechRecognition) as SpeechRecognitionConstructor;
+    const browserWindow = window as Window & {
+      SpeechRecognition?: SpeechRecognitionConstructor;
+      webkitSpeechRecognition?: SpeechRecognitionConstructor;
+    };
+    const Recognition = browserWindow.SpeechRecognition ?? browserWindow.webkitSpeechRecognition;
+    if (!Recognition) return;
     const recognition = new Recognition();
     recognition.lang = "en-US";
     recognition.interimResults = false;
@@ -134,13 +139,10 @@ export function SupportAssistant() {
   });
   const busy = status === "submitted" || status === "streaming";
   const lastAssistantMessage = [...messages].reverse().find((message) => message.role === "assistant");
-  const voice = useVoiceSupport(
-    (transcript) => {
-      setInput((current) => (current ? `${current} ${transcript}` : transcript));
-      inputRef.current?.focus();
-    },
-    () => undefined,
-  );
+  const voice = useVoiceSupport((transcript) => {
+    setInput((current) => (current ? `${current} ${transcript}` : transcript));
+    inputRef.current?.focus();
+  });
 
   useEffect(() => {
     if (!open) return;
