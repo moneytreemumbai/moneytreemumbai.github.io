@@ -1,9 +1,7 @@
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
 import {
-  ArrowUp,
   Bot,
-  CircleHelp,
   Headphones,
   Mic,
   MicOff,
@@ -30,6 +28,21 @@ import { Shimmer } from "@/components/ai-elements/shimmer";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+type SpeechRecognitionResultLike = { 0?: { transcript?: string } };
+type SpeechRecognitionEventLike = { results: ArrayLike<SpeechRecognitionResultLike> };
+type SpeechRecognitionLike = {
+  lang: string;
+  interimResults: boolean;
+  maxAlternatives: number;
+  onstart: (() => void) | null;
+  onend: (() => void) | null;
+  onerror: (() => void) | null;
+  onresult: ((event: SpeechRecognitionEventLike) => void) | null;
+  start: () => void;
+  stop: () => void;
+};
+type SpeechRecognitionConstructor = new () => SpeechRecognitionLike;
+
 const WELCOME_MESSAGE: UIMessage = {
   id: "meridian-welcome",
   role: "assistant",
@@ -54,8 +67,8 @@ function getMessageText(message: UIMessage) {
     .join("");
 }
 
-function useVoiceSupport(onTranscript: (text: string) => void, onSpeak: (text: string) => void) {
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
+function useVoiceSupport(onTranscript: (text: string) => void) {
+  const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [voiceAvailable, setVoiceAvailable] = useState(false);
@@ -67,7 +80,7 @@ function useVoiceSupport(onTranscript: (text: string) => void, onSpeak: (text: s
 
   const startListening = () => {
     if (!("SpeechRecognition" in window || "webkitSpeechRecognition" in window)) return;
-    const Recognition = window.SpeechRecognition ?? window.webkitSpeechRecognition;
+    const Recognition = (window.SpeechRecognition ?? window.webkitSpeechRecognition) as SpeechRecognitionConstructor;
     const recognition = new Recognition();
     recognition.lang = "en-US";
     recognition.interimResults = false;
@@ -75,7 +88,7 @@ function useVoiceSupport(onTranscript: (text: string) => void, onSpeak: (text: s
     recognition.onstart = () => setIsListening(true);
     recognition.onend = () => setIsListening(false);
     recognition.onerror = () => setIsListening(false);
-    recognition.onresult = (event) => {
+    recognition.onresult = (event: SpeechRecognitionEventLike) => {
       const transcript = event.results[0]?.[0]?.transcript?.trim();
       if (transcript) onTranscript(transcript);
     };
@@ -97,7 +110,6 @@ function useVoiceSupport(onTranscript: (text: string) => void, onSpeak: (text: s
     utterance.onend = () => setIsSpeaking(false);
     utterance.onerror = () => setIsSpeaking(false);
     window.speechSynthesis.speak(utterance);
-    onSpeak(text);
   };
 
   const stopSpeaking = () => {
