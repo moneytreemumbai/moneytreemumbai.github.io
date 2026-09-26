@@ -1,14 +1,6 @@
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
-import {
-  Bot,
-  Headphones,
-  Mic,
-  MicOff,
-  Volume2,
-  VolumeX,
-  X,
-} from "lucide-react";
+import { Bot, Headphones, Mic, MicOff, Volume2, VolumeX, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import {
@@ -122,7 +114,15 @@ function useVoiceSupport(onTranscript: (text: string) => void) {
     setIsSpeaking(false);
   };
 
-  return { voiceAvailable, isListening, isSpeaking, startListening, stopListening, speak, stopSpeaking };
+  return {
+    voiceAvailable,
+    isListening,
+    isSpeaking,
+    startListening,
+    stopListening,
+    speak,
+    stopSpeaking,
+  };
 }
 
 export function SupportAssistant() {
@@ -138,7 +138,9 @@ export function SupportAssistant() {
     onError: () => undefined,
   });
   const busy = status === "submitted" || status === "streaming";
-  const lastAssistantMessage = [...messages].reverse().find((message) => message.role === "assistant");
+  const lastAssistantMessage = [...messages]
+    .reverse()
+    .find((message) => message.role === "assistant");
   const voice = useVoiceSupport((transcript) => {
     setInput((current) => (current ? `${current} ${transcript}` : transcript));
     inputRef.current?.focus();
@@ -150,7 +152,12 @@ export function SupportAssistant() {
   }, [open]);
 
   useEffect(() => {
-    if (status === "ready" && voiceEnabled && lastAssistantMessage && lastAssistantMessage.id !== WELCOME_MESSAGE.id) {
+    if (
+      status === "ready" &&
+      voiceEnabled &&
+      lastAssistantMessage &&
+      lastAssistantMessage.id !== WELCOME_MESSAGE.id
+    ) {
       const text = getMessageText(lastAssistantMessage);
       if (text) voice.speak(text);
     }
@@ -173,15 +180,26 @@ export function SupportAssistant() {
         >
           <header className="flex items-center justify-between border-b border-border bg-navy-deep px-5 py-4 text-white">
             <div className="flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center rounded-full border border-gold/60 bg-navy text-gold" aria-hidden="true">
+              <div
+                className="flex size-10 items-center justify-center rounded-full border border-gold/60 bg-navy text-gold"
+                aria-hidden="true"
+              >
                 <span className="font-display text-lg">M</span>
               </div>
               <div>
                 <p className="font-display text-xl leading-none">Meridian</p>
-                <p className="mt-1 text-[0.68rem] uppercase tracking-[0.18em] text-white/60">Market Strategy support</p>
+                <p className="mt-1 text-[0.68rem] uppercase tracking-[0.18em] text-white/60">
+                  Market Strategy support
+                </p>
               </div>
             </div>
-            <Button aria-label="Close support assistant" className="text-white hover:bg-white/10 hover:text-white" onClick={() => setOpen(false)} size="icon" variant="ghost">
+            <Button
+              aria-label="Close support assistant"
+              className="text-white hover:bg-white/10 hover:text-white"
+              onClick={() => setOpen(false)}
+              size="icon"
+              variant="ghost"
+            >
               <X />
             </Button>
           </header>
@@ -189,60 +207,135 @@ export function SupportAssistant() {
           <Conversation className="min-h-0 flex-1 bg-background">
             <ConversationContent className="gap-5 p-4">
               {messages.length === 0 ? (
-                <ConversationEmptyState icon={<Bot className="size-8 text-gold" />} title="How can we help?" description="Ask about our work, industries, or process." />
+                <ConversationEmptyState
+                  icon={<Bot className="size-8 text-gold" />}
+                  title="How can we help?"
+                  description="Ask about our work, industries, or process."
+                />
               ) : (
                 messages.map((message) => {
                   const text = getMessageText(message);
                   if (!text && message.role !== "assistant") return null;
                   return (
                     <Message key={message.id} from={message.role} className="max-w-[92%]">
-                      <MessageContent className={cn(message.role === "user" && "bg-navy text-white") }>
-                        {message.role === "assistant" ? <MessageResponse isAnimating={status === "streaming" && message.id === lastAssistantMessage?.id}>{text}</MessageResponse> : <p className="whitespace-pre-wrap">{text}</p>}
+                      <MessageContent
+                        className={cn(message.role === "user" && "bg-navy text-white")}
+                      >
+                        {message.role === "assistant" ? (
+                          <MessageResponse
+                            isAnimating={
+                              status === "streaming" && message.id === lastAssistantMessage?.id
+                            }
+                          >
+                            {text}
+                          </MessageResponse>
+                        ) : (
+                          <p className="whitespace-pre-wrap">{text}</p>
+                        )}
                       </MessageContent>
                     </Message>
                   );
                 })
               )}
-              {status === "submitted" && <Shimmer className="px-1 text-sm text-muted-foreground">Thinking through that…</Shimmer>}
-              {error && <p className="px-1 text-xs text-destructive" role="alert">The assistant could not respond. Please try again.</p>}
+              {status === "submitted" && (
+                <Shimmer className="px-1 text-sm text-muted-foreground">
+                  Thinking through that…
+                </Shimmer>
+              )}
+              {error && (
+                <p className="px-1 text-xs text-destructive" role="alert">
+                  The assistant could not respond. Please try again.
+                </p>
+              )}
             </ConversationContent>
             <ConversationScrollButton aria-label="Scroll to latest message" />
           </Conversation>
 
           {messages.length <= 1 && (
             <div className="flex flex-wrap gap-2 border-t border-border px-4 py-3">
-              {QUICK_PROMPTS.map((prompt) => <button className="rounded-full border border-border px-3 py-1.5 text-left text-xs text-muted-foreground transition-colors hover:border-gold hover:text-foreground" key={prompt} onClick={() => void submit({ text: prompt })} type="button">{prompt}</button>)}
+              {QUICK_PROMPTS.map((prompt) => (
+                <button
+                  className="rounded-full border border-border px-3 py-1.5 text-left text-xs text-muted-foreground transition-colors hover:border-gold hover:text-foreground"
+                  key={prompt}
+                  onClick={() => void submit({ text: prompt })}
+                  type="button"
+                >
+                  {prompt}
+                </button>
+              ))}
             </div>
           )}
 
           <div className="border-t border-border bg-card p-3">
             <PromptInput onSubmit={submit}>
-              <PromptInputTextarea ref={inputRef} value={input} onChange={(event) => setInput(event.target.value)} placeholder="Ask about Market Strategy…" disabled={busy} aria-label="Ask Market Strategy a question" />
+              <PromptInputTextarea
+                ref={inputRef}
+                value={input}
+                onChange={(event) => setInput(event.target.value)}
+                placeholder="Ask about Market Strategy…"
+                disabled={busy}
+                aria-label="Ask Market Strategy a question"
+              />
               <PromptInputFooter className="justify-between">
                 <div className="flex items-center gap-1">
                   {voice.voiceAvailable && (
-                    <Button aria-label={voice.isListening ? "Stop listening" : "Speak your question"} className={cn(voice.isListening && "text-destructive")} onClick={voice.isListening ? voice.stopListening : voice.startListening} size="icon" type="button" variant="ghost">
+                    <Button
+                      aria-label={voice.isListening ? "Stop listening" : "Speak your question"}
+                      className={cn(voice.isListening && "text-destructive")}
+                      onClick={voice.isListening ? voice.stopListening : voice.startListening}
+                      size="icon"
+                      type="button"
+                      variant="ghost"
+                    >
                       {voice.isListening ? <MicOff /> : <Mic />}
                     </Button>
                   )}
                   {voice.voiceAvailable && (
-                    <Button aria-label={voiceEnabled ? "Turn off spoken answers" : "Turn on spoken answers"} className={cn(voice.isSpeaking && "text-gold")} onClick={() => { setVoiceEnabled((enabled) => !enabled); if (voice.isSpeaking) voice.stopSpeaking(); }} size="icon" type="button" variant="ghost">
+                    <Button
+                      aria-label={
+                        voiceEnabled ? "Turn off spoken answers" : "Turn on spoken answers"
+                      }
+                      className={cn(voice.isSpeaking && "text-gold")}
+                      onClick={() => {
+                        setVoiceEnabled((enabled) => !enabled);
+                        if (voice.isSpeaking) voice.stopSpeaking();
+                      }}
+                      size="icon"
+                      type="button"
+                      variant="ghost"
+                    >
                       {voiceEnabled ? <Volume2 /> : <VolumeX />}
                     </Button>
                   )}
                 </div>
-                <PromptInputSubmit status={status} disabled={!input.trim() && !busy} onStop={stop} />
+                <PromptInputSubmit
+                  status={status}
+                  disabled={!input.trim() && !busy}
+                  onStop={stop}
+                />
               </PromptInputFooter>
             </PromptInput>
-            <p className="mt-2 px-1 text-[0.65rem] leading-relaxed text-muted-foreground">For confidential, financial, legal, or investment matters, please speak directly with our advisory team.</p>
+            <p className="mt-2 px-1 text-[0.65rem] leading-relaxed text-muted-foreground">
+              For confidential, financial, legal, or investment matters, please speak directly with
+              our advisory team.
+            </p>
           </div>
         </section>
       )}
 
-      <Button aria-expanded={open} aria-label={open ? "Close customer support assistant" : "Open customer support assistant"} className="group size-14 rounded-full bg-gold text-navy-deep shadow-xl shadow-navy-deep/25 transition-transform hover:bg-gold-soft hover:scale-105" onClick={() => setOpen((visible) => !visible)}>
+      <Button
+        aria-expanded={open}
+        aria-label={open ? "Close customer support assistant" : "Open customer support assistant"}
+        className="group size-14 rounded-full bg-gold text-navy-deep shadow-xl shadow-navy-deep/25 transition-transform hover:bg-gold-soft hover:scale-105"
+        onClick={() => setOpen((visible) => !visible)}
+      >
         {open ? <X /> : <Headphones className="transition-transform group-hover:rotate-6" />}
       </Button>
-      {!open && <span className="sr-only">Chat with Meridian, Market Strategy’s customer support assistant</span>}
+      {!open && (
+        <span className="sr-only">
+          Chat with Meridian, Market Strategy’s customer support assistant
+        </span>
+      )}
     </div>
   );
 }
