@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as SupportRouteImport } from './routes/support'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as InsightsRouteImport } from './routes/insights'
@@ -25,6 +26,11 @@ import { Route as ApiChatRouteImport } from './routes/api/chat'
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupportRoute = SupportRouteImport.update({
+  id: '/support',
+  path: '/support',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesRoute = ServicesRouteImport.update({
@@ -94,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/insights': typeof InsightsRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
+  '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
   '/api/chat': typeof ApiChatRoute
 }
@@ -108,6 +115,7 @@ export interface FileRoutesByTo {
   '/insights': typeof InsightsRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
+  '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
   '/api/chat': typeof ApiChatRoute
 }
@@ -123,6 +131,7 @@ export interface FileRoutesById {
   '/insights': typeof InsightsRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
+  '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
   '/api/chat': typeof ApiChatRoute
 }
@@ -139,6 +148,7 @@ export interface FileRouteTypes {
     | '/insights'
     | '/privacy'
     | '/services'
+    | '/support'
     | '/terms'
     | '/api/chat'
   fileRoutesByTo: FileRoutesByTo
@@ -153,6 +163,7 @@ export interface FileRouteTypes {
     | '/insights'
     | '/privacy'
     | '/services'
+    | '/support'
     | '/terms'
     | '/api/chat'
   id:
@@ -167,6 +178,7 @@ export interface FileRouteTypes {
     | '/insights'
     | '/privacy'
     | '/services'
+    | '/support'
     | '/terms'
     | '/api/chat'
   fileRoutesById: FileRoutesById
@@ -182,6 +194,7 @@ export interface RootRouteChildren {
   InsightsRoute: typeof InsightsRoute
   PrivacyRoute: typeof PrivacyRoute
   ServicesRoute: typeof ServicesRoute
+  SupportRoute: typeof SupportRoute
   TermsRoute: typeof TermsRoute
   ApiChatRoute: typeof ApiChatRoute
 }
@@ -193,6 +206,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/support': {
+      id: '/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof SupportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services': {
@@ -286,6 +306,7 @@ const rootRouteChildren: RootRouteChildren = {
   InsightsRoute: InsightsRoute,
   PrivacyRoute: PrivacyRoute,
   ServicesRoute: ServicesRoute,
+  SupportRoute: SupportRoute,
   TermsRoute: TermsRoute,
   ApiChatRoute: ApiChatRoute,
 }
