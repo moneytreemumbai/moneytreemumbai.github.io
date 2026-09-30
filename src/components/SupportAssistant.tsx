@@ -178,13 +178,13 @@ export function SupportAssistant() {
   };
 
   return (
-    <div className="support-assistant fixed bottom-5 right-5 z-50 sm:bottom-7 sm:right-7">
+    <div className="support-assistant fixed bottom-5 right-5 z-[110] sm:bottom-7 sm:right-7">
       {open && (
         <section
           aria-label="Market Strategy customer support assistant"
           className="mb-4 flex h-[min(680px,calc(100vh-7rem))] w-[min(420px,calc(100vw-2rem))] flex-col overflow-hidden border border-navy/15 bg-background shadow-2xl shadow-navy-deep/20"
         >
-          <header className="flex items-center justify-between border-b border-border bg-navy-deep px-5 py-4 text-white">
+          <header className="flex items-center justify-between border-b border-border bg-navy-deep px-5 py-4 text-primary-foreground">
             <div className="flex items-center gap-3">
               <div
                 className="flex size-10 items-center justify-center rounded-full border border-gold/60 bg-navy text-gold"
@@ -194,14 +194,14 @@ export function SupportAssistant() {
               </div>
               <div>
                 <p className="font-display text-xl leading-none">Meridian</p>
-                <p className="mt-1 text-[0.68rem] uppercase tracking-[0.18em] text-white/60">
+                <p className="mt-1 text-[0.68rem] uppercase tracking-[0.18em] text-primary-foreground/60">
                   Market Strategy support
                 </p>
               </div>
             </div>
             <Button
               aria-label="Close support assistant"
-              className="text-white hover:bg-white/10 hover:text-white"
+              className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
               onClick={() => setOpen(false)}
               size="icon"
               variant="ghost"
@@ -225,7 +225,7 @@ export function SupportAssistant() {
                   return (
                     <Message key={message.id} from={message.role} className="max-w-[92%]">
                       <MessageContent
-                        className={cn(message.role === "user" && "bg-navy text-white")}
+                        className={cn(message.role === "user" && "bg-navy text-primary-foreground")}
                       >
                         {message.role === "assistant" ? (
                           <MessageResponse
