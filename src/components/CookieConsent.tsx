@@ -34,6 +34,14 @@ export function CookieConsent() {
     else setAnalytics(existing.analytics);
   }, []);
 
+  useEffect(() => {
+    document.documentElement.dataset.cookieConsent = visible ? "open" : "closed";
+    window.dispatchEvent(new CustomEvent("ms:cookie-consent", { detail: { visible } }));
+    return () => {
+      delete document.documentElement.dataset.cookieConsent;
+    };
+  }, [visible]);
+
   if (!visible) return null;
 
   const persist = (analyticsChoice: boolean) => {
@@ -51,10 +59,17 @@ export function CookieConsent() {
         <div className="p-5 sm:p-6">
           <h2 className="font-display text-lg">Your privacy matters</h2>
           <p className="mt-2 text-sm text-white/70">
-            We use strictly necessary cookies to run this site. With your consent, we also use analytics cookies to
-            understand how visitors engage with our content so we can improve it. See our{" "}
-            <a href="/privacy" className="text-gold underline underline-offset-4">Privacy Policy</a> and{" "}
-            <a href="/cookies" className="text-gold underline underline-offset-4">Cookie Policy</a>.
+            We use strictly necessary cookies to run this site. With your consent, we also use
+            analytics cookies to understand how visitors engage with our content so we can improve
+            it. See our{" "}
+            <a href="/privacy" className="text-gold underline underline-offset-4">
+              Privacy Policy
+            </a>{" "}
+            and{" "}
+            <a href="/cookies" className="text-gold underline underline-offset-4">
+              Cookie Policy
+            </a>
+            .
           </p>
 
           {showPrefs && (
@@ -63,7 +78,9 @@ export function CookieConsent() {
                 <input type="checkbox" checked readOnly className="mt-1 accent-gold" />
                 <span>
                   <span className="block font-medium">Strictly necessary</span>
-                  <span className="text-white/60">Required for security, session, and preferences. Always on.</span>
+                  <span className="text-white/60">
+                    Required for security, session, and preferences. Always on.
+                  </span>
                 </span>
               </label>
               <label className="flex items-start gap-3">
@@ -75,7 +92,9 @@ export function CookieConsent() {
                 />
                 <span>
                   <span className="block font-medium">Analytics</span>
-                  <span className="text-white/60">Anonymous usage metrics to improve the experience.</span>
+                  <span className="text-white/60">
+                    Anonymous usage metrics to improve the experience.
+                  </span>
                 </span>
               </label>
             </div>
