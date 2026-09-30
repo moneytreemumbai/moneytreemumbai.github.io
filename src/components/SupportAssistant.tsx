@@ -178,7 +178,7 @@ export function SupportAssistant() {
   };
 
   return (
-    <div className="support-assistant fixed bottom-5 right-5 z-[110] sm:bottom-7 sm:right-7">
+    <div className="support-assistant fixed bottom-5 right-5 z-[110] data-[cookie-consent=open]:bottom-56 sm:bottom-7 sm:right-7 sm:data-[cookie-consent=open]:bottom-44">
       {open && (
         <section
           aria-label="Market Strategy customer support assistant"

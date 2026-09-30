@@ -34,6 +34,13 @@ export function CookieConsent() {
     else setAnalytics(existing.analytics);
   }, []);
 
+  useEffect(() => {
+    document.documentElement.dataset.cookieConsent = visible ? "open" : "closed";
+    return () => {
+      delete document.documentElement.dataset.cookieConsent;
+    };
+  }, [visible]);
+
   if (!visible) return null;
 
   const persist = (analyticsChoice: boolean) => {
