@@ -36,6 +36,7 @@ export function CookieConsent() {
 
   useEffect(() => {
     document.documentElement.dataset.cookieConsent = visible ? "open" : "closed";
+    window.dispatchEvent(new CustomEvent("ms:cookie-consent", { detail: { visible } }));
     return () => {
       delete document.documentElement.dataset.cookieConsent;
     };

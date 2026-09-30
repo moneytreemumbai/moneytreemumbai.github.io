@@ -133,6 +133,7 @@ function useVoiceSupport(onTranscript: (text: string) => void) {
 
 export function SupportAssistant() {
   const [open, setOpen] = useState(false);
+  const [cookieConsentOpen, setCookieConsentOpen] = useState(false);
   const [input, setInput] = useState("");
   const [voiceEnabled, setVoiceEnabled] = useState(true);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -151,6 +152,18 @@ export function SupportAssistant() {
     setInput((current) => (current ? `${current} ${transcript}` : transcript));
     inputRef.current?.focus();
   });
+  const voiceRef = useRef(voice);
+  voiceRef.current = voice;
+  const spokenMessageRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    const updateCookieConsent = () => {
+      setCookieConsentOpen(document.documentElement.dataset.cookieConsent === "open");
+    };
+    updateCookieConsent();
+    window.addEventListener("ms:cookie-consent", updateCookieConsent);
+    return () => window.removeEventListener("ms:cookie-consent", updateCookieConsent);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -162,10 +175,14 @@ export function SupportAssistant() {
       status === "ready" &&
       voiceEnabled &&
       lastAssistantMessage &&
-      lastAssistantMessage.id !== WELCOME_MESSAGE.id
+      lastAssistantMessage.id !== WELCOME_MESSAGE.id &&
+      lastAssistantMessage.id !== spokenMessageRef.current
     ) {
       const text = getMessageText(lastAssistantMessage);
-      if (text) voice.speak(text);
+      if (text) {
+        spokenMessageRef.current = lastAssistantMessage.id;
+        voiceRef.current.speak(text);
+      }
     }
   }, [status, voiceEnabled, lastAssistantMessage?.id]);
 
@@ -178,7 +195,12 @@ export function SupportAssistant() {
   };
 
   return (
-    <div className="support-assistant fixed bottom-5 right-5 z-[110] data-[cookie-consent=open]:bottom-56 sm:bottom-7 sm:right-7 sm:data-[cookie-consent=open]:bottom-44">
+    <div
+      className={cn(
+        "support-assistant fixed right-5 z-[110] sm:right-7",
+        cookieConsentOpen ? "bottom-56 sm:bottom-44" : "bottom-5 sm:bottom-7",
+      )}
+    >
       {open && (
         <section
           aria-label="Market Strategy customer support assistant"
