@@ -25,8 +25,9 @@ export function NewsletterForm() {
       return;
     }
 
-    const formspreeId = import.meta.env.VITE_FORMSPREE_NEWSLETTER_ID as string | undefined
-      ?? (import.meta.env.VITE_FORMSPREE_ID as string | undefined);
+    const formspreeId =
+      (import.meta.env.VITE_FORMSPREE_NEWSLETTER_ID as string | undefined) ??
+      (import.meta.env.VITE_FORMSPREE_ID as string | undefined);
 
     setStatus("submitting");
     setError("");
@@ -53,14 +54,11 @@ export function NewsletterForm() {
   }
 
   return (
-    <form
-      noValidate
-      onSubmit={onSubmit}
-      className="mt-3"
-      aria-label="Subscribe to newsletter"
-    >
+    <form noValidate onSubmit={onSubmit} className="mt-3" aria-label="Subscribe to newsletter">
       <div className="flex border-b border-white/20 focus-within:border-gold transition-colors">
-        <label htmlFor="newsletter-email" className="sr-only">Email address</label>
+        <label htmlFor="newsletter-email" className="sr-only">
+          Email address
+        </label>
         <input
           id="newsletter-email"
           type="email"
