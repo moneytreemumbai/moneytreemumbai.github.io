@@ -8,3 +8,4 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+- The static GitHub Pages template lives in `github-pages/index.html`, never at the project root — a root index.html makes Lovable publishing serve an unbuilt blank page.

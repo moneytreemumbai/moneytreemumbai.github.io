@@ -198,13 +198,13 @@ export function SupportAssistant() {
     <div
       className={cn(
         "support-assistant fixed right-5 z-[110] sm:right-7",
-        cookieConsentOpen ? "bottom-56 sm:bottom-44" : "bottom-5 sm:bottom-7",
+        cookieConsentOpen && !open ? "bottom-56 sm:bottom-44" : "bottom-5 sm:bottom-7",
       )}
     >
       {open && (
         <section
           aria-label="Market Strategy customer support assistant"
-          className="mb-4 flex h-[min(680px,calc(100vh-7rem))] w-[min(420px,calc(100vw-2rem))] flex-col overflow-hidden border border-navy/15 bg-background shadow-2xl shadow-navy-deep/20"
+          className="mb-4 flex h-[min(680px,calc(100dvh-7rem))] w-[min(420px,calc(100vw-2rem))] flex-col overflow-hidden border border-navy/15 bg-background shadow-2xl shadow-navy-deep/20"
         >
           <header className="flex items-center justify-between border-b border-border bg-navy-deep px-5 py-4 text-primary-foreground">
             <div className="flex items-center gap-3">
