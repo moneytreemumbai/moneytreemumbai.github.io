@@ -166,7 +166,10 @@ function RootShell({ children }: { children: ReactNode }) {
   // The static GitHub Pages build mounts into <div id="root">. Rendering
   // <html>/<body> inside that div makes React's event system loop forever on
   // the first click, so the static build renders only the page content.
-  if (typeof window !== "undefined" && (window as { __MS_STATIC_SPA__?: boolean }).__MS_STATIC_SPA__) {
+  if (
+    typeof window !== "undefined" &&
+    (window as { __MS_STATIC_SPA__?: boolean }).__MS_STATIC_SPA__
+  ) {
     return (
       <>
         <HeadContent />
