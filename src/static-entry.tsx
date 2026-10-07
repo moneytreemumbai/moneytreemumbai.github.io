@@ -11,6 +11,8 @@ if (!rootElement) {
   throw new Error("Root element #root was not found.");
 }
 
+(window as { __MS_STATIC_SPA__?: boolean }).__MS_STATIC_SPA__ = true;
+
 const router = getRouter();
 
 createRoot(rootElement).render(
