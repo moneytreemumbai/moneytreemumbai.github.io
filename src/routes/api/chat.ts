@@ -27,56 +27,81 @@ Company information:
 
 Keep answers under 180 words unless the customer asks for more detail. Use short paragraphs or bullets when useful.`;
 
+// The static GitHub Pages copy of the site calls this endpoint cross-origin.
+const ALLOWED_ORIGINS = new Set(["https://moneytreemumbai.github.io"]);
+
+function corsHeaders(request: Request): Record<string, string> {
+  const origin = request.headers.get("origin");
+  if (!origin || !ALLOWED_ORIGINS.has(origin)) return {};
+  return {
+    "Access-Control-Allow-Origin": origin,
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Max-Age": "86400",
+    Vary: "Origin",
+  };
+}
+
+function withCors(response: Response, request: Request): Response {
+  const extra = corsHeaders(request);
+  for (const [key, value] of Object.entries(extra)) response.headers.set(key, value);
+  return response;
+}
+
 export const Route = createFileRoute("/api/chat")({
   server: {
     handlers: {
-      POST: async ({ request }) => {
-        try {
-          const body = requestSchema.parse(await request.json());
-          const messages = await validateUIMessages({ messages: body.messages });
-          const apiKey = process.env["LOVABLE_API_KEY"];
-
-          if (!apiKey) {
-            return new Response("The support assistant is not configured yet.", { status: 503 });
-          }
-
-          const { gateway, model } = createSupportResponsesProvider(request, apiKey);
-          const result = streamText({
-            model,
-            system: SUPPORT_INSTRUCTIONS,
-            messages: await convertToModelMessages(messages as UIMessage[]),
-            abortSignal: request.signal,
-            providerOptions: {
-              openai: {
-                forceReasoning: true,
-                reasoningEffort: "low",
-                reasoningSummary: "auto",
-                store: false,
-                include: ["reasoning.encrypted_content"],
-              },
-            },
-          });
-
-          const response = result.toUIMessageStreamResponse({
-            originalMessages: messages as UIMessage[],
-            sendReasoning: true,
-            headers: getLovableAiGatewayResponseHeaders(undefined),
-          });
-
-          return withLovableAiGatewayRunIdHeader(response, gateway);
-        } catch (error) {
-          if (error instanceof z.ZodError) {
-            return new Response("Please send a valid support question.", { status: 400 });
-          }
-          if (error instanceof Error && error.name === "AbortError") {
-            return new Response(null, { status: 499 });
-          }
-          console.error("Support assistant request failed", error);
-          return new Response("The support assistant could not respond right now.", {
-            status: 500,
-          });
-        }
-      },
+      OPTIONS: async ({ request }) =>
+        new Response(null, { status: 204, headers: corsHeaders(request) }),
+      POST: async ({ request }) => withCors(await handleChat(request), request),
     },
   },
 });
+
+async function handleChat(request: Request): Promise<Response> {
+  try {
+    const body = requestSchema.parse(await request.json());
+    const messages = await validateUIMessages({ messages: body.messages });
+    const apiKey = process.env["LOVABLE_API_KEY"];
+
+    if (!apiKey) {
+      return new Response("The support assistant is not configured yet.", { status: 503 });
+    }
+
+    const { gateway, model } = createSupportResponsesProvider(request, apiKey);
+    const result = streamText({
+      model,
+      system: SUPPORT_INSTRUCTIONS,
+      messages: await convertToModelMessages(messages as UIMessage[]),
+      abortSignal: request.signal,
+      providerOptions: {
+        openai: {
+          forceReasoning: true,
+          reasoningEffort: "low",
+          reasoningSummary: "auto",
+          store: false,
+          include: ["reasoning.encrypted_content"],
+        },
+      },
+    });
+
+    const response = result.toUIMessageStreamResponse({
+      originalMessages: messages as UIMessage[],
+      sendReasoning: true,
+      headers: getLovableAiGatewayResponseHeaders(undefined),
+    });
+
+    return withLovableAiGatewayRunIdHeader(response, gateway);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return new Response("Please send a valid support question.", { status: 400 });
+    }
+    if (error instanceof Error && error.name === "AbortError") {
+      return new Response(null, { status: 499 });
+    }
+    console.error("Support assistant request failed", error);
+    return new Response("The support assistant could not respond right now.", {
+      status: 500,
+    });
+  }
+}

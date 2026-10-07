@@ -137,7 +137,18 @@ export function SupportAssistant() {
   const [input, setInput] = useState("");
   const [voiceEnabled, setVoiceEnabled] = useState(true);
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  const transport = useMemo(() => new DefaultChatTransport({ api: "/api/chat" }), []);
+  const transport = useMemo(
+    () =>
+      new DefaultChatTransport({
+        // The static GitHub Pages build has no server, so it uses the live site's chat service.
+        api:
+          typeof window !== "undefined" &&
+          (window as { __MS_STATIC_SPA__?: boolean }).__MS_STATIC_SPA__
+            ? "https://marketstrategy.lovable.app/api/chat"
+            : "/api/chat",
+      }),
+    [],
+  );
   const { messages, sendMessage, status, stop, error } = useChat({
     id: "market-strategy-support-session",
     messages: [WELCOME_MESSAGE],
